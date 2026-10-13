@@ -1,6 +1,7 @@
 /**
- * RentEquip - Customer Portal Controller (customer.html)
- * Powers booking lifecycle management, equipment pickup, returns, receipts, and verified post-rental reviews.
+ * RentEquip - Student Customer Portal Controller (customer.html)
+ * Powers student booking management, pickup confirmation, item returns,
+ * simulated UPI receipts in ₹, and verified peer reviews.
  */
 
 (function (window) {
@@ -19,7 +20,6 @@
     },
 
     bindEvents() {
-      // Tab switcher
       const tabGroup = document.getElementById('booking-tabs');
       if (tabGroup) {
         tabGroup.addEventListener('click', (e) => {
@@ -32,7 +32,6 @@
         });
       }
 
-      // Review star rating selector
       const starGroup = document.getElementById('review-star-group');
       if (starGroup) {
         starGroup.addEventListener('click', (e) => {
@@ -44,7 +43,6 @@
         });
       }
 
-      // Review form submit
       const reviewForm = document.getElementById('review-form');
       if (reviewForm) {
         reviewForm.addEventListener('submit', (e) => {
@@ -53,7 +51,6 @@
         });
       }
 
-      // Return equipment form submit
       const returnForm = document.getElementById('return-form');
       if (returnForm) {
         returnForm.addEventListener('submit', (e) => {
@@ -68,10 +65,10 @@
       starBtns.forEach(btn => {
         const btnVal = Number(btn.getAttribute('data-val'));
         btn.classList.toggle('active', btnVal <= val);
-        btn.style.color = btnVal <= val ? '#fbbf24' : '#475569';
+        btn.style.color = btnVal <= val ? '#f59e0b' : '#cbd5e1';
       });
       const desc = document.getElementById('review-star-desc');
-      const descriptions = ['', 'Poor experience', 'Below expectations', 'Good & functional', 'Very good condition', 'Exceptional performance'];
+      const descriptions = ['', 'Poor condition / Missing parts', 'Fair / Barely functional', 'Good working order', 'Very good & clean', 'Mint condition / Excellent!'];
       if (desc) desc.textContent = descriptions[val] || '';
     },
 
@@ -92,9 +89,8 @@
         userAvatarEl.textContent = user.avatar;
         userAvatarEl.style.background = window.RentEquip.UI.getUserColor(user.role);
       }
-      if (userCompanyEl) userCompanyEl.textContent = user.company || 'Verified Customer';
+      if (userCompanyEl) userCompanyEl.textContent = user.company || 'Verified Student Renter';
 
-      // Role check banner if not customer
       const roleBanner = document.getElementById('role-warning-banner');
       if (roleBanner) {
         if (user.role !== 'customer') {
@@ -102,14 +98,14 @@
           roleBanner.innerHTML = `
             <div>
               <strong>Perspective Note:</strong> You are currently viewing as <em>${user.name} (${user.role.toUpperCase()})</em>. 
-              To view customer bookings for Alex Rivera, <a href="#" id="switch-to-customer-link" style="text-decoration: underline; font-weight: 700; color: inherit;">click here to switch to Customer perspective</a>.
+              To view student bookings for Aarav Sharma, <a href="#" id="switch-to-customer-link" style="text-decoration: underline; font-weight: 800; color: inherit;">click here to switch to Aarav Sharma's perspective</a>.
             </div>
           `;
           const switchLink = document.getElementById('switch-to-customer-link');
           if (switchLink) {
             switchLink.addEventListener('click', (e) => {
               e.preventDefault();
-              window.RentEquip.Auth.switchUser('usr_alex');
+              window.RentEquip.Auth.switchUser('usr_aarav');
             });
           }
         } else {
@@ -121,7 +117,6 @@
     getCustomerBookings() {
       const user = window.RentEquip.Auth.getUser();
       const allBookings = window.RentEquip.Storage.getBookings();
-      // If customer role, filter by customerId. If admin, show all bookings; if owner, show bookings customerId = user.id
       return allBookings.filter(b => b.customerId === user.id);
     },
 
@@ -166,13 +161,12 @@
       const Calc = window.RentEquip.Calc;
       const today = Calc.getTodayISO();
 
-      // Filter by tab
       const filtered = bookings.filter(b => {
         if (this.activeTab === 'active') return ['active', 'approved'].includes(b.status);
         if (this.activeTab === 'pending') return b.status === 'pending';
         if (this.activeTab === 'completed') return b.status === 'completed';
         if (this.activeTab === 'cancelled') return ['cancelled', 'rejected'].includes(b.status);
-        return true; // 'all'
+        return true;
       });
 
       if (filtered.length === 0) {
@@ -196,13 +190,13 @@
                 </div>
                 <div>
                   <div class="table-item-title">${b.equipmentTitle}</div>
-                  <div class="table-item-sub">ID: ${b.id} • Host: ${b.ownerName}</div>
+                  <div class="table-item-sub">Ref: ${b.id} • Host: ${b.ownerName}</div>
                 </div>
               </div>
             </td>
             <td>
               <div><strong>${Calc.formatDate(b.startDate)}</strong> to <strong>${Calc.formatDate(b.endDate)}</strong></div>
-              <div class="table-item-sub">${b.rentalDays} billable days</div>
+              <div class="table-item-sub">${b.rentalDays} days duration</div>
             </td>
             <td>
               <div><strong>${Calc.formatCurrency(b.totalUpfrontPaid)}</strong></div>
@@ -214,7 +208,7 @@
             <td>
               <div class="table-actions">
                 ${this.renderActionButtons(b, isOverdue)}
-                <button class="btn btn-outline btn-sm btn-view-receipt" data-id="${b.id}" title="View Simulated Receipt">
+                <button class="btn btn-outline btn-sm btn-view-receipt" data-id="${b.id}" title="View Campus UPI Receipt">
                   <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                   </svg>
@@ -233,7 +227,7 @@
       if (b.status === 'pending') {
         return `
           <button class="btn btn-outline btn-sm btn-cancel-booking" data-id="${b.id}">
-            Cancel Request
+            Cancel
           </button>
         `;
       }
@@ -247,13 +241,13 @@
       if (b.status === 'active') {
         return `
           <button class="btn ${isOverdue ? 'btn-danger' : 'btn-primary'} btn-sm btn-open-return" data-id="${b.id}">
-            ${isOverdue ? 'Return Overdue Unit' : 'Initiate Return'}
+            ${isOverdue ? 'Return Overdue Item' : 'Return Item'}
           </button>
         `;
       }
       if (b.status === 'returned') {
         return `
-          <span class="badge badge-returned" style="font-size: 0.75rem;">Awaiting Inspection</span>
+          <span class="badge badge-returned" style="font-size: 0.75rem;">Awaiting Check</span>
         `;
       }
       if (b.status === 'completed') {
@@ -265,7 +259,7 @@
           `;
         } else {
           return `
-            <span class="badge badge-success" style="font-size: 0.75rem;">Reviewed ★</span>
+            <span class="badge badge-available" style="font-size: 0.75rem;">Reviewed ★</span>
           `;
         }
       }
@@ -284,9 +278,9 @@
       tbody.querySelectorAll('.btn-cancel-booking').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const id = e.currentTarget.getAttribute('data-id');
-          if (confirm('Cancel this rental request? Your simulated payment will be refunded immediately.')) {
+          if (confirm('Cancel this borrow request? Your simulated payment will be refunded immediately.')) {
             window.RentEquip.Storage.transitionBookingStatus(id, 'cancelled');
-            window.RentEquip.UI.showToast(`Booking #${id} cancelled. Refund issued.`, 'info');
+            window.RentEquip.UI.showToast(`Request #${id} cancelled. Simulated refund issued.`, 'info');
           }
         });
       });
@@ -295,7 +289,7 @@
         btn.addEventListener('click', (e) => {
           const id = e.currentTarget.getAttribute('data-id');
           window.RentEquip.Storage.transitionBookingStatus(id, 'active');
-          window.RentEquip.UI.showToast(`Equipment pickup confirmed! Rental #${id} is now ACTIVE.`, 'success');
+          window.RentEquip.UI.showToast(`Handover confirmed! Item #${id} is now in your custody.`, 'success');
         });
       });
 
@@ -333,7 +327,7 @@
       const unitSummary = document.getElementById('return-unit-summary');
       const returnDateInput = document.getElementById('return-actual-date');
 
-      if (modalTitle) modalTitle.textContent = `Return Equipment: ${b.equipmentTitle}`;
+      if (modalTitle) modalTitle.textContent = `Return Item: ${b.equipmentTitle}`;
       if (returnDateInput) {
         returnDateInput.value = today;
         returnDateInput.max = today;
@@ -344,22 +338,22 @@
         const overdueDays = Calc.calculateOverdueDays(b.endDate, today);
 
         unitSummary.innerHTML = `
-          <div style="background: var(--color-surface-raised); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.25rem;">
+          <div style="background: var(--color-surface-raised); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.25rem; border: 1.5px solid var(--color-border);">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
               <span>Scheduled Return Date:</span>
               <strong>${Calc.formatDate(b.endDate)}</strong>
             </div>
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-              <span>Security Deposit on Hold:</span>
-              <strong style="color: #34d399;">${Calc.formatCurrency(b.securityDeposit)}</strong>
+              <span>Security Deposit in Escrow:</span>
+              <strong style="color: var(--color-success);">${Calc.formatCurrency(b.securityDeposit)}</strong>
             </div>
             ${isOverdue ? `
               <div class="overdue-warning-banner" style="margin-top: 0.75rem; margin-bottom: 0;">
-                ⚠️ <strong>Rental is Overdue:</strong> Unit was scheduled to be returned on ${Calc.formatDate(b.endDate)} (${overdueDays} days late). Late fee calculations will apply during owner inspection.
+                ⚠️ <strong>Item is Overdue:</strong> Due date was ${Calc.formatDate(b.endDate)} (${overdueDays} days late). Standard student late fee (1.25x daily rate) will apply during host inspection.
               </div>
             ` : `
-              <div style="font-size: 0.8rem; color: #34d399; margin-top: 0.5rem;">
-                ✓ Returning on schedule. No late penalty will apply.
+              <div style="font-size: 0.85rem; color: var(--color-success); margin-top: 0.5rem; font-weight: 700;">
+                ✓ Returning on schedule! 100% deposit will be refunded after host check.
               </div>
             `}
           </div>
@@ -380,7 +374,7 @@
       });
 
       window.RentEquip.UI.closeModal('return-modal');
-      window.RentEquip.UI.showToast(`Equipment marked returned! Host ${this.selectedBookingId} notified for condition inspection.`, 'success');
+      window.RentEquip.UI.showToast(`Item returned! Host notified to verify condition.`, 'success');
       this.selectedBookingId = null;
     },
 
@@ -394,7 +388,6 @@
       document.getElementById('review-equipment-title').textContent = b.equipmentTitle;
       document.getElementById('review-comment').value = '';
 
-      // Reset stars to 5
       document.getElementById('review-rating-val').value = '5';
       this.updateStarRatingUI(5);
 
@@ -408,7 +401,7 @@
       const comment = document.getElementById('review-comment').value;
 
       if (!comment.trim()) {
-        window.RentEquip.UI.showToast('Please provide a brief comment about equipment condition & performance.', 'warning');
+        window.RentEquip.UI.showToast('Please provide a brief peer review note.', 'warning');
         return;
       }
 
@@ -421,7 +414,7 @@
 
       if (res.success) {
         window.RentEquip.UI.closeModal('review-modal');
-        window.RentEquip.UI.showToast('Thank you! Your verified review has been published.', 'success');
+        window.RentEquip.UI.showToast('Thank you! Your peer review is now visible to other students.', 'success');
         this.render();
       } else {
         window.RentEquip.UI.showToast(res.error, 'error');
@@ -442,27 +435,27 @@
         <div class="receipt-paper">
           <div class="receipt-header">
             <div>
-              <div class="receipt-title">RentEquip Receipt</div>
-              <div style="font-size: 0.85rem; color: #475569;">Simulated Heavy Machinery Marketplace</div>
+              <div class="receipt-title">RentEquip Campus Receipt</div>
+              <div style="font-size: 0.85rem; color: var(--color-text-muted); font-weight: 600;">Student Resource Sharing Network</div>
             </div>
             <div class="receipt-meta">
-              <div><strong>Receipt #:</strong> ${b.payment ? b.payment.transactionId : 'TX-SIM'}</div>
-              <div><strong>Booking Ref:</strong> ${b.id}</div>
+              <div><strong>Transaction Ref:</strong> ${b.payment ? b.payment.transactionId : 'CAMPUS-UPI'}</div>
+              <div><strong>Booking ID:</strong> ${b.id}</div>
               <div><strong>Date:</strong> ${Calc.formatDate(b.createdAt.split('T')[0])}</div>
             </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.85rem; color: #334155;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.88rem;">
             <div>
-              <strong>Billed To:</strong><br>
+              <strong style="color: var(--color-primary);">Renter (Student):</strong><br>
               ${b.customerName}<br>
-              ${b.customerCompany || 'Commercial Renter'}<br>
+              ${b.customerCompany || 'Student'}<br>
               ${b.customerEmail}
             </div>
             <div>
-              <strong>Equipment Host:</strong><br>
+              <strong style="color: var(--color-primary);">Host / Lender:</strong><br>
               ${b.ownerName}<br>
-              Equipment: ${b.equipmentTitle}<br>
+              Item: ${b.equipmentTitle}<br>
               Duration: ${b.rentalDays} days (${Calc.formatDate(b.startDate)} - ${Calc.formatDate(b.endDate)})
             </div>
           </div>
@@ -477,56 +470,56 @@
             </thead>
             <tbody>
               <tr>
-                <td>Equipment Rental (${b.equipmentTitle})</td>
+                <td>Item Rental (${b.equipmentTitle})</td>
                 <td>${b.rentalDays} days @ ${Calc.formatCurrency(b.dailyRate)}/day</td>
                 <td style="text-align: right;">${Calc.formatCurrency(b.rentalFee)}</td>
               </tr>
               <tr>
-                <td>Damage Protection &amp; Platform Processing (6%)</td>
-                <td>Flat Protection Fee</td>
+                <td>Student Community Pool Fee (5%)</td>
+                <td>Platform Maintenance</td>
                 <td style="text-align: right;">${Calc.formatCurrency(b.serviceFee)}</td>
               </tr>
               <tr>
-                <td>Security Deposit (Held in Escrow)</td>
-                <td>100% Refundable upon inspection</td>
+                <td>Refundable Security Deposit (Escrow)</td>
+                <td>100% Refundable after return check</td>
                 <td style="text-align: right;">${Calc.formatCurrency(b.securityDeposit)}</td>
               </tr>
               <tr class="total-row">
-                <td colspan="2"><strong>Total Upfront Charged</strong></td>
+                <td colspan="2"><strong>Total Upfront Paid</strong></td>
                 <td style="text-align: right;"><strong>${Calc.formatCurrency(b.totalUpfrontPaid)}</strong></td>
               </tr>
             </tbody>
           </table>
 
           ${isCompleted ? `
-            <div style="margin-top: 1.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 1rem;">
-              <h4 style="font-size: 0.95rem; color: #0f172a; margin-bottom: 0.5rem;">Return Inspection &amp; Deposit Settlement</h4>
-              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem; color: #475569;">
-                <span>Equipment Condition:</span>
-                <strong style="text-transform: capitalize; color: #0f172a;">${b.inspection.condition.replace('_', ' ')}</strong>
+            <div style="margin-top: 1.5rem; background: var(--color-surface-raised); border: 1.5px solid var(--color-border); border-radius: 6px; padding: 1rem;">
+              <h4 style="font-size: 0.95rem; color: var(--color-primary); margin-bottom: 0.5rem;">Return Inspection &amp; Deposit Settlement</h4>
+              <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.35rem;">
+                <span>Item Condition:</span>
+                <strong style="text-transform: capitalize;">${b.inspection.condition.replace('_', ' ')}</strong>
               </div>
-              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem; color: #475569;">
-                <span>Late Return Penalty (${b.inspection.lateDays} days late):</span>
-                <span style="color: ${b.inspection.latePenaltyFee > 0 ? '#dc2626' : '#475569'};">${Calc.formatCurrency(b.inspection.latePenaltyFee)}</span>
+              <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.35rem;">
+                <span>Late Penalty (${b.inspection.lateDays} days late):</span>
+                <span style="color: ${b.inspection.latePenaltyFee > 0 ? '#dc2626' : 'inherit'}; font-weight: 700;">${Calc.formatCurrency(b.inspection.latePenaltyFee)}</span>
               </div>
-              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem; color: #475569;">
-                <span>Damage Deductions:</span>
-                <span style="color: ${b.inspection.damageFee > 0 ? '#dc2626' : '#475569'};">${Calc.formatCurrency(b.inspection.damageFee)}</span>
+              <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.35rem;">
+                <span>Wear / Damage Deductions:</span>
+                <span style="color: ${b.inspection.damageFee > 0 ? '#dc2626' : 'inherit'}; font-weight: 700;">${Calc.formatCurrency(b.inspection.damageFee)}</span>
               </div>
-              <div style="display: flex; justify-content: space-between; font-size: 0.95rem; font-weight: 800; border-top: 1px solid #cbd5e1; padding-top: 0.5rem; margin-top: 0.5rem; color: #059669;">
-                <span>Deposit Refunded to Customer:</span>
+              <div style="display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 900; border-top: 1.5px solid var(--color-border); padding-top: 0.5rem; margin-top: 0.5rem; color: var(--color-success);">
+                <span>Deposit Refunded:</span>
                 <span>${Calc.formatCurrency(b.inspection.depositRefunded)}</span>
               </div>
-              <p style="font-size: 0.78rem; color: #64748b; margin-top: 0.5rem;">Inspector Notes: "${b.inspection.damageNotes}"</p>
+              <p style="font-size: 0.8rem; color: var(--color-text-dim); margin-top: 0.5rem;">Inspector Notes: "${b.inspection.damageNotes}"</p>
             </div>
           ` : `
-            <div style="margin-top: 1rem; font-size: 0.82rem; color: #64748b; background: #f8fafc; padding: 0.75rem; border-radius: 4px;">
-              <strong>Security Deposit Status:</strong> ${b.payment ? b.payment.depositStatus.replace('_', ' ').toUpperCase() : 'HELD'} (Final settlement occurs upon equipment inspection).
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--color-text-dim); background: var(--color-surface-raised); padding: 0.75rem; border-radius: 4px; border: 1px solid var(--color-border);">
+              <strong>Security Deposit Status:</strong> ${b.payment ? b.payment.depositStatus.replace('_', ' ').toUpperCase() : 'HELD'} (Full refund processed upon safe item return).
             </div>
           `}
 
-          <div style="margin-top: 2rem; border-top: 1px dashed #cbd5e1; padding-top: 1rem; text-align: center; font-size: 0.75rem; color: #94a3b8;">
-            Simulated Transaction • Paid via ${b.payment ? b.payment.method : 'Card'} • RentEquip Testbed
+          <div style="margin-top: 2rem; border-top: 1.5px dashed var(--color-border); padding-top: 1rem; text-align: center; font-size: 0.78rem; color: var(--color-text-dim);">
+            Simulated College UPI Transfer • Paid via ${b.payment ? b.payment.method : 'UPI'} • RentEquip Testbed
           </div>
         </div>
       `;

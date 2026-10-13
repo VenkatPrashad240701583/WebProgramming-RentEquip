@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <rect width="600" height="400" rx="16" fill="#f8fafc"/>
+
+  <!-- 4-Socket Spike Guard Extension Board -->
+  <g transform="translate(130, 110)">
+    <!-- Long White Surge Protector Strip -->
+    <rect x="0" y="30" width="320" height="95" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2.5"/>
+
+    <!-- Master Switch (Red LED illuminated rocker) -->
+    <rect x="25" y="55" width="30" height="45" rx="4" fill="#dc2626"/>
+    <circle cx="40" cy="70" r="4" fill="#fca5a5"/>
+
+    <!-- 4 Universal Indian 3-Pin Sockets -->
+    <!-- Socket 1 -->
+    <g transform="translate(90, 60)">
+      <circle cx="16" cy="10" r="4.5" fill="#1e293b"/>
+      <circle cx="8" cy="28" r="3.5" fill="#1e293b"/>
+      <circle cx="24" cy="28" r="3.5" fill="#1e293b"/>
+    </g>
+    <!-- Socket 2 -->
+    <g transform="translate(150, 60)">
+      <circle cx="16" cy="10" r="4.5" fill="#1e293b"/>
+      <circle cx="8" cy="28" r="3.5" fill="#1e293b"/>
+      <circle cx="24" cy="28" r="3.5" fill="#1e293b"/>
+    </g>
+    <!-- Socket 3 -->
+    <g transform="translate(210, 60)">
+      <circle cx="16" cy="10" r="4.5" fill="#1e293b"/>
+      <circle cx="8" cy="28" r="3.5" fill="#1e293b"/>
+      <circle cx="24" cy="28" r="3.5" fill="#1e293b"/>
+    </g>
+    <!-- Socket 4 -->
+    <g transform="translate(270, 60)">
+      <circle cx="16" cy="10" r="4.5" fill="#1e293b"/>
+      <circle cx="8" cy="28" r="3.5" fill="#1e293b"/>
+      <circle cx="24" cy="28" r="3.5" fill="#1e293b"/>
+    </g>
+
+    <!-- 5 Meter Coiled Cable leading out -->
+    <path d="M0 75 C-40 75, -60 140, 20 170 C100 200, 250 170, 260 210 C270 240, 360 230, 390 190" stroke="#334155" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <!-- 3-Pin Plug Head at end -->
+    <rect x="385" y="170" width="35" height="30" rx="6" fill="#1e293b"/>
+    <rect x="420" y="178" width="15" height="5" fill="#f59e0b"/>
+    <rect x="420" y="188" width="15" height="5" fill="#f59e0b"/>
+  </g>
+
+  <text x="48" y="44" fill="#0f172a" font-size="16" font-family="system-ui, sans-serif" font-weight="800">SPIKE GUARD EXTENSION BOARD</text>
+  <text x="340" y="44" fill="#0284c7" font-size="12" font-family="system-ui, sans-serif">4-Socket with Individual Switches • 5m Wire</text>
+</svg>

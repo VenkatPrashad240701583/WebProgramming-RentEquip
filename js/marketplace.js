@@ -1,6 +1,7 @@
 /**
- * RentEquip - Marketplace Controller (index.html)
- * Powers real-time search, multi-faceted filtering, sorting, card rendering, and quick view modal.
+ * RentEquip - Campus Marketplace Controller (index.html)
+ * Powers real-time search, multi-category filtering, campus location filters,
+ * student pricing (₹), and quick view modals.
  */
 
 (function (window) {
@@ -11,7 +12,7 @@
       searchQuery: '',
       selectedCategory: 'all',
       selectedLocation: 'all',
-      maxPrice: 500,
+      maxPrice: 300,
       availableOnly: false,
       featuredOnly: false,
       sortBy: 'featured',
@@ -23,7 +24,6 @@
       this.bindEvents();
       this.render();
 
-      // Re-render when equipment or bookings change in storage
       window.addEventListener('rentequip:change', () => {
         this.loadEquipment();
         this.render();
@@ -62,7 +62,6 @@
           const category = chip.getAttribute('data-category');
           this.state.selectedCategory = category;
 
-          // Update active chip UI
           document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
           chip.classList.add('active');
 
@@ -96,7 +95,7 @@
       if (priceSlider && priceDisplay) {
         priceSlider.addEventListener('input', (e) => {
           this.state.maxPrice = Number(e.target.value);
-          priceDisplay.textContent = `$${this.state.maxPrice}`;
+          priceDisplay.textContent = `₹${this.state.maxPrice}`;
           this.render();
         });
       }
@@ -166,7 +165,7 @@
       this.state.searchQuery = '';
       this.state.selectedCategory = 'all';
       this.state.selectedLocation = 'all';
-      this.state.maxPrice = 500;
+      this.state.maxPrice = 300;
       this.state.availableOnly = false;
       this.state.featuredOnly = false;
       this.state.sortBy = 'featured';
@@ -182,8 +181,8 @@
 
       const priceSlider = document.getElementById('price-slider');
       const priceDisplay = document.getElementById('price-display');
-      if (priceSlider) priceSlider.value = 500;
-      if (priceDisplay) priceDisplay.textContent = '$500';
+      if (priceSlider) priceSlider.value = 300;
+      if (priceDisplay) priceDisplay.textContent = '₹300';
 
       const availToggle = document.getElementById('filter-available-only');
       if (availToggle) availToggle.checked = false;
@@ -204,7 +203,6 @@
 
     getFilteredEquipment() {
       return this.state.equipmentList.filter(item => {
-        // Query search
         if (this.state.searchQuery) {
           const q = this.state.searchQuery;
           const matchTitle = item.title.toLowerCase().includes(q);
@@ -216,7 +214,6 @@
           }
         }
 
-        // Category filter
         if (this.state.selectedCategory !== 'all') {
           if (Array.isArray(this.state.selectedCategory)) {
             if (!this.state.selectedCategory.includes(item.category)) return false;
@@ -225,24 +222,20 @@
           }
         }
 
-        // Location filter
         if (this.state.selectedLocation !== 'all') {
           if (!item.location.toLowerCase().includes(this.state.selectedLocation.toLowerCase())) {
             return false;
           }
         }
 
-        // Price filter
         if (item.dailyRate > this.state.maxPrice) {
           return false;
         }
 
-        // Available only
         if (this.state.availableOnly && item.status !== 'available') {
           return false;
         }
 
-        // Featured only
         if (this.state.featuredOnly && !item.featured) {
           return false;
         }
@@ -288,10 +281,10 @@
         grid.innerHTML = `
           <div class="empty-state" style="grid-column: 1 / -1;">
             <svg class="empty-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"/>
             </svg>
-            <h3 class="empty-title">No matching equipment found</h3>
-            <p class="empty-desc">Try clearing selected filters, adjusting the daily rate limit, or searching for broader terms like "lift", "excavator", or "mixer".</p>
+            <h3 class="empty-title">No matching student supplies found</h3>
+            <p class="empty-desc">Try clearing filters, raising the daily rate budget, or searching for essentials like "lab coat", "calculator", "drafter", or "pen".</p>
             <button class="btn btn-outline" id="empty-reset-btn">Reset All Filters</button>
           </div>
         `;
@@ -336,15 +329,15 @@
         });
       }
 
-      if (this.state.maxPrice < 500) {
+      if (this.state.maxPrice < 300) {
         badges.push({
-          label: `Max: $${this.state.maxPrice}/day`,
+          label: `Max: ₹${this.state.maxPrice}/day`,
           clear: () => {
-            this.state.maxPrice = 500;
+            this.state.maxPrice = 300;
             const slider = document.getElementById('price-slider');
-            if (slider) slider.value = 500;
+            if (slider) slider.value = 300;
             const display = document.getElementById('price-display');
-            if (display) display.textContent = '$500';
+            if (display) display.textContent = '₹300';
             this.render();
           }
         });
@@ -352,7 +345,7 @@
 
       if (this.state.availableOnly) {
         badges.push({
-          label: 'Available Only',
+          label: 'Available Now',
           clear: () => {
             this.state.availableOnly = false;
             const toggle = document.getElementById('filter-available-only');
@@ -364,7 +357,7 @@
 
       if (this.state.featuredOnly) {
         badges.push({
-          label: 'Featured Only',
+          label: 'Featured Picks',
           clear: () => {
             this.state.featuredOnly = false;
             const toggle = document.getElementById('filter-featured-only');
@@ -401,6 +394,12 @@
       const statusBadge = window.RentEquip.UI.getStatusBadge(item.status);
       const specsPreview = (item.specs || []).slice(0, 2);
 
+      let conditionBadge = '';
+      if (item.condition) {
+        const condClass = item.condition.includes('Pristine') ? 'condition-pristine' : item.condition.includes('Gently') ? 'condition-gently-used' : 'condition-good';
+        conditionBadge = `<span class="condition-tag ${condClass}">${item.condition.split('/')[0].trim()}</span>`;
+      }
+
       return `
         <article class="equipment-card" id="card-${item.id}">
           <div class="card-media-wrapper">
@@ -410,6 +409,13 @@
           </div>
 
           <div class="equipment-card-content">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+              ${conditionBadge}
+              <div class="rating-stars" style="font-size: 0.82rem;">
+                ★ ${item.rating.toFixed(1)} <span class="text-xs text-muted">(${item.reviewCount || 0})</span>
+              </div>
+            </div>
+
             <a href="equipment.html?id=${item.id}" class="card-title-link">
               <h3 class="equipment-card-title">${item.title}</h3>
             </a>
@@ -432,11 +438,8 @@
                   ${Calc.formatCurrency(item.dailyRate)} <span class="price-period">/ day</span>
                 </div>
                 <div class="price-deposit-note">
-                  Deposit: ${Calc.formatCurrency(item.securityDeposit)} (Refundable)
+                  Deposit: ${Calc.formatCurrency(item.securityDeposit)} (100% Refundable)
                 </div>
-              </div>
-              <div class="rating-stars">
-                ★ ${item.rating.toFixed(1)} <span class="text-xs text-muted">(${item.reviewCount || 0})</span>
               </div>
             </div>
 
@@ -445,7 +448,7 @@
                 Quick View
               </button>
               <a href="equipment.html?id=${item.id}" class="btn btn-primary btn-sm">
-                Rent &amp; Calculate
+                Borrow Item
               </a>
             </div>
           </div>
@@ -470,48 +473,51 @@
       if (modalBody) {
         modalBody.innerHTML = `
           <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 1.5rem; align-items: start;">
-            <div style="background-color: #0b0f17; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); height: 220px;">
-              <img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover;" />
+            <div style="background-color: var(--color-surface-raised); border-radius: var(--radius-md); overflow: hidden; border: 1.5px solid var(--color-border); height: 220px; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+              <img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: contain;" />
             </div>
 
             <div>
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
-                <span class="badge badge-${item.category.toLowerCase().replace(/[^a-z]/g, '')}">${item.category}</span>
+                <span class="sticker-tag sticker-tag-blue">${item.category}</span>
                 ${window.RentEquip.UI.getStatusBadge(item.status)}
               </div>
 
-              <p style="font-size: 0.88rem; margin-bottom: 1rem; color: var(--color-text-muted); line-height: 1.5;">
+              <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--color-text-muted); line-height: 1.55;">
                 ${item.description}
               </p>
 
-              <div style="background-color: var(--color-surface-raised); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 1rem;">
-                <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.35rem;">
-                  <span>Daily Rate:</span>
-                  <strong>${Calc.formatCurrency(item.dailyRate)} / day</strong>
+              <div style="background-color: var(--color-surface-raised); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 1rem; border: 1.5px solid var(--color-border);">
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.35rem;">
+                  <span>Student Daily Rate:</span>
+                  <strong style="color: var(--color-primary);">${Calc.formatCurrency(item.dailyRate)} / day</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 0.35rem;">
-                  <span>Weekly Rate:</span>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.35rem;">
+                  <span>Weekly Study Pass:</span>
                   <strong>${Calc.formatCurrency(item.weeklyRate)} / wk</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--color-success);">
-                  <span>Refundable Deposit:</span>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--color-success); font-weight: 700;">
+                  <span>Refundable Escrow Deposit:</span>
                   <strong>${Calc.formatCurrency(item.securityDeposit)}</strong>
                 </div>
               </div>
 
-              <div style="font-size: 0.82rem; color: var(--color-text-dim);">
-                📍 Pick up at: <strong>${item.location}</strong>
+              <div style="font-size: 0.84rem; color: var(--color-text-muted); font-weight: 600;">
+                📍 Pickup Point: <strong>${item.location}</strong>
+              </div>
+              <div style="font-size: 0.82rem; color: var(--color-text-dim); margin-top: 0.25rem;">
+                👤 Student Host: <strong>${item.ownerName}</strong>
               </div>
             </div>
           </div>
 
-          <div style="margin-top: 1.5rem; border-top: 1px solid var(--color-border); padding-top: 1rem;">
-            <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Key Specifications</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.84rem;">
+          <div style="margin-top: 1.5rem; border-top: 1.5px solid var(--color-border); padding-top: 1rem;">
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--color-primary);">Item Specifications</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.86rem;">
               ${(item.specs || []).map(s => `
-                <div style="display: flex; justify-content: space-between; padding: 0.35rem 0.5rem; background: var(--color-surface-raised); border-radius: 4px;">
+                <div style="display: flex; justify-content: space-between; padding: 0.4rem 0.6rem; background: var(--color-surface-raised); border-radius: 4px; border: 1px solid var(--color-border);">
                   <span style="color: var(--color-text-muted);">${s.label}:</span>
-                  <span style="font-weight: 600;">${s.value}</span>
+                  <span style="font-weight: 700;">${s.value}</span>
                 </div>
               `).join('')}
             </div>

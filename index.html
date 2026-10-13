@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="RentEquip - Modern commercial equipment rental marketplace. Rent excavators, aerial lifts, generators, and compaction machinery with instant availability.">
-  <title>RentEquip — Heavy Equipment &amp; Machinery Rental Marketplace</title>
+  <meta name="description" content="RentEquip - College campus equipment and study resource rental network. Borrow scientific calculators, lab coats, mini-drafters, Arduino kits, and textbooks on campus.">
+  <title>RentEquip — College Campus Equipment &amp; Resource Sharing</title>
   
-  <!-- CSS Stylesheets (Relative Paths for GitHub Pages) -->
+  <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/marketplace.css">
@@ -18,53 +18,69 @@
     <header class="main-header" id="main-header"></header>
 
     <main class="main-content" id="main-content">
-      <!-- Hero Section -->
+      <!-- Campus Hero Section with Animated Floating Academic Stationery -->
       <section class="hero-section">
-        <div class="container">
+        <!-- Floating Academic Elements -->
+        <div class="hero-floating-decor" aria-hidden="true">
+          <div class="floating-item float-pen">🖊️</div>
+          <div class="floating-item float-calc">📐</div>
+          <div class="floating-item float-book">📚</div>
+          <div class="floating-item float-drafter">🔬</div>
+          <div class="floating-item float-compass">🎨</div>
+          <div class="floating-item float-laptop">💻</div>
+        </div>
+
+        <div class="container" style="position: relative; z-index: 2;">
           <div class="hero-tagline">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
-            Commercial Fleet On-Demand
+            ⚡ Exam Emergency or Forgotten Lab Gear? Instant Campus Pickup
           </div>
           <h1 class="hero-title">
-            Rent Heavy Machinery &amp; Tools <br><span>Zero Friction, Instant Depot Pickup</span>
+            Borrow College Supplies &amp; Gear <br><span>From Seniors &amp; Campus Labs</span>
           </h1>
           <p class="hero-subtitle">
-            Hydraulic excavators, boom lifts, compaction plates, and silent diesel generators. Transparent refundable deposits, validated availability, and zero paper contracts.
+            Scientific calculators, lab coats, mini-drafters, drawing boards, Arduino kits, and textbooks. 100% peer-to-peer student borrowing with refundable deposits.
           </p>
 
           <!-- Search Widget -->
           <div class="search-widget-card">
-            <form class="search-widget-form" id="search-form" role="search" aria-label="Search equipment catalog">
+            <form class="search-widget-form" id="search-form" role="search" aria-label="Search campus catalog">
               <div class="search-field">
                 <svg class="search-field-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
-                <input type="text" id="search-input" class="search-input" placeholder="Search equipment model, brand, or specs (e.g. CAT 308, Lift)..." aria-label="Search equipment keywords">
+                <input type="text" id="search-input" class="search-input" placeholder="Search supplies (e.g. Casio fx-991EX, Drafter, Lab Coat)..." aria-label="Search supplies keywords">
               </div>
 
               <div class="search-field">
-                <select id="search-category-select" class="search-select" aria-label="Select equipment category">
-                  <option value="all">All Fleet Categories</option>
-                  <option value="Earthmoving">Earthmoving &amp; Excavation</option>
-                  <option value="Aerial & Lifts">Aerial Work Platforms</option>
-                  <option value="Power & Lighting">Power &amp; Lighting</option>
-                  <option value="Concrete & Masonry">Concrete &amp; Masonry</option>
-                  <option value="Compaction & Paving">Compaction &amp; Paving</option>
-                  <option value="Landscaping">Landscaping &amp; Forestry</option>
-                  <option value="Power Tools">Hand &amp; Power Tools</option>
-                  <option value="Cleaning & Prep">Cleaning &amp; Prep</option>
+                <select id="search-category-select" class="search-select" aria-label="Select supply category">
+                  <option value="all">All Campus Categories</option>
+                  <option value="Stationery">Stationery &amp; Writing</option>
+                  <option value="Engineering Drawing">Engineering Drawing</option>
+                  <option value="Lab Essentials">Lab Essentials &amp; Electronics</option>
+                  <option value="Academic Resources">Academic Textbooks &amp; Calculators</option>
+                  <option value="Electronics & Computing">Electronics &amp; Computing</option>
+                  <option value="Art & Design">Fine Arts &amp; Design</option>
+                  <option value="Projects & Presentations">Projects &amp; Presentations</option>
+                  <option value="Sports & Recreation">Sports &amp; Recreation</option>
+                  <option value="Campus Events">Campus Events &amp; Culturals</option>
+                  <option value="Everyday Essentials">Everyday Student Essentials</option>
                 </select>
               </div>
 
               <div class="search-field">
-                <select id="search-location-select" class="search-select" aria-label="Select depot yard">
-                  <option value="all">All Depot Locations</option>
-                  <option value="Austin North Depot">Austin North Depot</option>
-                  <option value="Downtown Logistics Hub">Downtown Logistics Hub</option>
-                  <option value="South Congress Yard">South Congress Yard</option>
-                  <option value="East Riverside Yard">East Riverside Yard</option>
+                <select id="search-location-select" class="search-select" aria-label="Select pickup point">
+                  <option value="all">All Campus Pickup Points</option>
+                  <option value="Central Library">Central Library - Helpdesk</option>
+                  <option value="Mechanical Engineering Workshop">Mechanical Workshop (Block B)</option>
+                  <option value="Electronics & VLSI Lab">Electronics Lab (Block C)</option>
+                  <option value="Science Labs Corridor">Science Labs Corridor (Block C)</option>
+                  <option value="Kaveri Boys Hostel">Kaveri Boys Hostel</option>
+                  <option value="Saraswati Girls Hostel">Saraswati Girls Hostel</option>
+                  <option value="Student Activity Center">Student Activity Center (SAC)</option>
+                  <option value="Tech Hub">Tech Hub &amp; Makerspace</option>
+                  <option value="Campus Canteen">Campus Canteen / Student Mart</option>
+                  <option value="Fine Arts & Architecture Studio">Fine Arts Studio (Block E)</option>
+                  <option value="Computer Center">Computer Center</option>
                 </select>
               </div>
 
@@ -72,33 +88,35 @@
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
-                Find Fleet
+                Find Gear
               </button>
             </form>
           </div>
 
           <!-- Quick Category Filter Chips -->
           <div class="category-chips-bar" id="category-chips">
-            <button type="button" class="category-chip active" data-category="all">All Fleet</button>
-            <button type="button" class="category-chip" data-category="Earthmoving">Earthmoving</button>
-            <button type="button" class="category-chip" data-category="Aerial & Lifts">Aerial &amp; Lifts</button>
-            <button type="button" class="category-chip" data-category="Power & Lighting">Power &amp; Lighting</button>
-            <button type="button" class="category-chip" data-category="Concrete & Masonry">Concrete &amp; Masonry</button>
-            <button type="button" class="category-chip" data-category="Compaction & Paving">Compaction</button>
-            <button type="button" class="category-chip" data-category="Landscaping">Landscaping</button>
+            <button type="button" class="category-chip active" data-category="all">All Supplies (50+)</button>
+            <button type="button" class="category-chip" data-category="Stationery">✏️ Stationery</button>
+            <button type="button" class="category-chip" data-category="Engineering Drawing">📐 Drawing Boards</button>
+            <button type="button" class="category-chip" data-category="Lab Essentials">🔬 Lab Coats &amp; Kits</button>
+            <button type="button" class="category-chip" data-category="Academic Resources">📖 Calculators &amp; Books</button>
+            <button type="button" class="category-chip" data-category="Electronics & Computing">💻 Tech &amp; Laptops</button>
+            <button type="button" class="category-chip" data-category="Art & Design">🎨 Art Supplies</button>
+            <button type="button" class="category-chip" data-category="Sports & Recreation">🏸 Sports</button>
+            <button type="button" class="category-chip" data-category="Everyday Essentials">🎒 Essentials</button>
           </div>
         </div>
       </section>
 
-      <!-- Marketplace Catalog Section -->
+      <!-- Campus Marketplace Catalog Section -->
       <section class="container">
         <div class="marketplace-layout">
           <!-- Sidebar Filters -->
           <aside class="filter-sidebar" aria-label="Catalog Filters">
             <div class="filter-section">
               <div class="filter-title">
-                <span>Filter Fleet</span>
-                <button type="button" class="btn btn-outline btn-sm" id="btn-reset-filters" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;">Reset</button>
+                <span>Filter Supplies</span>
+                <button type="button" class="btn btn-outline btn-sm" id="btn-reset-filters" style="font-size: 0.74rem; padding: 0.2rem 0.5rem;">Reset</button>
               </div>
             </div>
 
@@ -106,51 +124,59 @@
             <div class="filter-section">
               <h3 class="filter-title">Category</h3>
               <label class="filter-checkbox-label">
-                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Earthmoving" checked>
-                <span>Earthmoving</span>
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Stationery" checked>
+                <span>Stationery &amp; Writing</span>
               </label>
               <label class="filter-checkbox-label">
-                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Aerial & Lifts" checked>
-                <span>Aerial &amp; Lifts</span>
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Engineering Drawing" checked>
+                <span>Engineering Drawing</span>
               </label>
               <label class="filter-checkbox-label">
-                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Power & Lighting" checked>
-                <span>Power &amp; Lighting</span>
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Lab Essentials" checked>
+                <span>Lab Essentials &amp; Electronics</span>
               </label>
               <label class="filter-checkbox-label">
-                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Concrete & Masonry" checked>
-                <span>Concrete &amp; Masonry</span>
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Academic Resources" checked>
+                <span>Textbooks &amp; Calculators</span>
               </label>
               <label class="filter-checkbox-label">
-                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Compaction & Paving" checked>
-                <span>Compaction &amp; Paving</span>
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Electronics & Computing" checked>
+                <span>Electronics &amp; Computing</span>
               </label>
               <label class="filter-checkbox-label">
-                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Landscaping" checked>
-                <span>Landscaping &amp; Forestry</span>
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Art & Design" checked>
+                <span>Art &amp; Design</span>
               </label>
               <label class="filter-checkbox-label">
-                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Power Tools" checked>
-                <span>Power Tools</span>
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Projects & Presentations" checked>
+                <span>Projects &amp; Presentations</span>
               </label>
               <label class="filter-checkbox-label">
-                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Cleaning & Prep" checked>
-                <span>Cleaning &amp; Prep</span>
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Sports & Recreation" checked>
+                <span>Sports &amp; Recreation</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Campus Events" checked>
+                <span>Campus Events &amp; Fest</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Everyday Essentials" checked>
+                <span>Everyday Student Essentials</span>
               </label>
             </div>
 
-            <!-- Price Range Filter -->
+            <!-- Student Daily Rate Slider -->
             <div class="filter-section">
               <h3 class="filter-title">Daily Rate Cap</h3>
               <div class="price-slider-group">
-                <div class="flex justify-between text-sm">
-                  <span>Up to:</span>
-                  <strong id="price-display" style="color: var(--color-primary); font-size: 1rem;">$500</strong>
+                <div class="flex justify-between text-sm font-bold">
+                  <span>Pocket Budget:</span>
+                  <strong id="price-display" style="color: var(--color-primary); font-size: 1.05rem;">₹300</strong>
                 </div>
-                <input type="range" id="price-slider" min="50" max="500" step="25" value="500" class="w-full" style="accent-color: var(--color-primary); cursor: pointer;" aria-label="Max daily rate">
-                <div class="flex justify-between text-xs text-dim">
-                  <span>$50/day</span>
-                  <span>$500/day</span>
+                <input type="range" id="price-slider" min="2" max="300" step="5" value="300" class="w-full" style="accent-color: var(--color-primary); cursor: pointer;" aria-label="Max student daily rate">
+                <div class="flex justify-between text-xs text-dim font-bold">
+                  <span>₹2/day</span>
+                  <span>₹300/day</span>
                 </div>
               </div>
             </div>
@@ -160,35 +186,35 @@
               <h3 class="filter-title">Availability</h3>
               <label class="filter-checkbox-label">
                 <input type="checkbox" id="filter-available-only" class="filter-checkbox">
-                <span>Available Now Only</span>
+                <span>Available Right Now</span>
               </label>
               <label class="filter-checkbox-label">
                 <input type="checkbox" id="filter-featured-only" class="filter-checkbox">
-                <span>Featured Equipment Only</span>
+                <span>Featured Campus Items</span>
               </label>
             </div>
 
-            <!-- Trust badges in sidebar -->
-            <div style="background: var(--color-surface-raised); border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.78rem; color: var(--color-text-muted);">
-              <p style="margin-bottom: 0.4rem;"><strong style="color: var(--color-text-main);">🛡️ Fully Inspected Fleet</strong></p>
-              <p>Every piece is condition-checked, load-tested, and pre-fueled before customer pickup.</p>
+            <!-- Student Trust Card in Sidebar -->
+            <div style="background: var(--color-surface-raised); border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.8rem; border: 1.5px solid var(--color-border);">
+              <p style="margin-bottom: 0.4rem;"><strong style="color: var(--color-primary);">🎓 Student Guarantee</strong></p>
+              <p style="color: var(--color-text-muted);">Borrow directly from peers, senior mentors, and campus clubs with 100% deposit return upon safe handover.</p>
             </div>
           </aside>
 
-          <!-- Main Equipment Grid -->
-          <section class="listings-main-area" aria-label="Equipment Listings">
+          <!-- Main Campus Equipment Grid Area -->
+          <section class="listings-main-area" aria-label="Campus Supplies Catalog">
             <div class="listings-header">
               <div class="listings-count">
-                Available Equipment (<span id="listings-count-num">12</span>)
+                Available Campus Supplies (<span id="listings-count-num">52</span>)
               </div>
               <div class="listings-controls">
-                <label for="sort-select" class="text-sm text-muted">Sort by:</label>
-                <select id="sort-select" class="sort-select" aria-label="Sort equipment">
+                <label for="sort-select" class="text-sm font-bold text-muted">Sort:</label>
+                <select id="sort-select" class="sort-select" aria-label="Sort supplies">
                   <option value="featured">Featured First</option>
-                  <option value="price-asc">Price: Low to High</option>
-                  <option value="price-desc">Price: High to Low</option>
-                  <option value="rating-desc">Highest Customer Rating</option>
-                  <option value="title-asc">Model Name (A-Z)</option>
+                  <option value="price-asc">Price: Lowest to Highest</option>
+                  <option value="price-desc">Price: Highest to Lowest</option>
+                  <option value="rating-desc">Highest Rated by Peers</option>
+                  <option value="title-asc">Item Name (A-Z)</option>
                 </select>
               </div>
             </div>
@@ -196,9 +222,9 @@
             <!-- Active Filter Badges -->
             <div class="active-filters-row" id="active-filters-badges" style="display: none;"></div>
 
-            <!-- Cards Container -->
+            <!-- Products Cards Container -->
             <div class="equipment-grid" id="equipment-grid">
-              <!-- Dynamically rendered by js/marketplace.js -->
+              <!-- Dynamically populated by js/marketplace.js -->
             </div>
           </section>
         </div>
@@ -214,7 +240,7 @@
     <div class="modal-backdrop"></div>
     <div class="modal-dialog modal-dialog-lg">
       <div class="modal-header">
-        <h3 class="modal-title" id="quick-view-modal-title">Equipment Quick View</h3>
+        <h3 class="modal-title" id="quick-view-modal-title">Item Quick View</h3>
         <button class="modal-close" onclick="RentEquip.UI.closeModal('quick-view-modal')" aria-label="Close modal">&times;</button>
       </div>
       <div class="modal-body" id="quick-view-modal-body">
@@ -223,7 +249,7 @@
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="RentEquip.UI.closeModal('quick-view-modal')">Close</button>
         <a href="#" id="quick-view-action-btn" class="btn btn-primary">
-          View Full Specs &amp; Calculator &rarr;
+          Check Availability &amp; Borrow &rarr;
         </a>
       </div>
     </div>

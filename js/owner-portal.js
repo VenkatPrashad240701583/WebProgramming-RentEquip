@@ -1,6 +1,7 @@
 /**
- * RentEquip - Equipment Owner Portal Controller (owner.html)
- * Powers inventory CRUD, booking approvals/rejections, and return inspection & deposit settlements.
+ * RentEquip - Student Lender & Club Portal Controller (owner.html)
+ * Powers student inventory CRUD, borrow request approvals/rejections,
+ * condition inspections, and security deposit settlements in ₹.
  */
 
 (function (window) {
@@ -20,7 +21,6 @@
     },
 
     bindEvents() {
-      // Main navigation tabs
       const tabGroup = document.getElementById('owner-tabs');
       if (tabGroup) {
         tabGroup.addEventListener('click', (e) => {
@@ -33,7 +33,6 @@
         });
       }
 
-      // Add equipment button
       const addBtn = document.getElementById('btn-add-equipment');
       if (addBtn) {
         addBtn.addEventListener('click', () => {
@@ -41,7 +40,6 @@
         });
       }
 
-      // Equipment form submit (Add / Edit)
       const eqForm = document.getElementById('equipment-form');
       if (eqForm) {
         eqForm.addEventListener('submit', (e) => {
@@ -50,7 +48,6 @@
         });
       }
 
-      // Rejection form submit
       const rejectForm = document.getElementById('reject-form');
       if (rejectForm) {
         rejectForm.addEventListener('submit', (e) => {
@@ -59,7 +56,6 @@
         });
       }
 
-      // Inspection form submit
       const inspectForm = document.getElementById('inspection-form');
       if (inspectForm) {
         inspectForm.addEventListener('submit', (e) => {
@@ -68,7 +64,6 @@
         });
       }
 
-      // Inspection condition buttons
       const conditionButtons = document.querySelectorAll('.condition-btn');
       conditionButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -80,7 +75,6 @@
         });
       });
 
-      // Damage input listener
       const damageInput = document.getElementById('inspect-damage-fee');
       if (damageInput) {
         damageInput.addEventListener('input', () => {
@@ -106,24 +100,23 @@
         userAvatarEl.textContent = user.avatar;
         userAvatarEl.style.background = window.RentEquip.UI.getUserColor(user.role);
       }
-      if (userCompanyEl) userCompanyEl.textContent = user.company || 'Commercial Fleet Owner';
+      if (userCompanyEl) userCompanyEl.textContent = user.company || 'Student Lender & Club Host';
 
-      // Role check banner if not owner
       const roleBanner = document.getElementById('owner-role-warning-banner');
       if (roleBanner) {
         if (user.role !== 'owner') {
           roleBanner.style.display = 'flex';
           roleBanner.innerHTML = `
             <div>
-              <strong>Perspective Note:</strong> You are currently viewing as <em>${user.name} (${user.role.toUpperCase()})</em>. 
-              To manage Marcus Vance's inventory and rental approvals, <a href="#" id="switch-to-owner-link" style="text-decoration: underline; font-weight: 700; color: inherit;">click here to switch to Owner perspective</a>.
+              <strong>Perspective Note:</strong> You are viewing as <em>${user.name} (${user.role.toUpperCase()})</em>. 
+              To manage Priya Patel's inventory and rental approvals, <a href="#" id="switch-to-owner-link" style="text-decoration: underline; font-weight: 800; color: inherit;">click here to switch to Priya Patel's perspective</a>.
             </div>
           `;
           const switchLink = document.getElementById('switch-to-owner-link');
           if (switchLink) {
             switchLink.addEventListener('click', (e) => {
               e.preventDefault();
-              window.RentEquip.Auth.switchUser('usr_marcus');
+              window.RentEquip.Auth.switchUser('usr_priya');
             });
           }
         } else {
@@ -169,7 +162,6 @@
       if (kpiPending) kpiPending.textContent = pendingApprovals;
       if (kpiEarnings) kpiEarnings.textContent = Calc.formatCurrency(totalEarnings);
 
-      // Show alert badge on inspection tab if units need inspection
       const inspectBadge = document.getElementById('tab-inspection-badge');
       if (inspectBadge) {
         if (needsInspection > 0) {
@@ -199,9 +191,6 @@
       }
     },
 
-    // -------------------------------------------------------------
-    // INVENTORY TABLE & CRUD
-    // -------------------------------------------------------------
     renderInventoryTable() {
       const tbody = document.getElementById('inventory-table-body');
       if (!tbody) return;
@@ -218,7 +207,7 @@
               </div>
               <div>
                 <div class="table-item-title">${item.title}</div>
-                <div class="table-item-sub">Category: ${item.category} • Depot: ${item.location}</div>
+                <div class="table-item-sub">${item.category} • Pickup: ${item.location}</div>
               </div>
             </div>
           </td>
@@ -227,7 +216,7 @@
             <div class="table-item-sub">Deposit: ${Calc.formatCurrency(item.securityDeposit)}</div>
           </td>
           <td>
-            <div>★ ${item.rating.toFixed(1)} <span class="text-xs text-muted">(${item.reviewCount || 0})</span></div>
+            <div>★ ${item.rating.toFixed(1)} <span class="text-xs text-muted font-bold">(${item.reviewCount || 0})</span></div>
           </td>
           <td>
             ${window.RentEquip.UI.getStatusBadge(item.status)}
@@ -236,17 +225,16 @@
             <div class="table-actions">
               <button class="btn btn-outline btn-sm btn-edit-equipment" data-id="${item.id}">Edit</button>
               <button class="btn btn-outline btn-sm btn-toggle-maintenance" data-id="${item.id}">
-                ${item.status === 'maintenance' ? 'Set Available' : 'Maintenance'}
+                ${item.status === 'maintenance' ? 'Set Available' : 'Under Check'}
               </button>
-              <button class="btn btn-outline btn-sm btn-delete-equipment" data-id="${item.id}" style="color: var(--color-danger); border-color: rgba(239, 68, 68, 0.4);">
-                Delete
+              <button class="btn btn-outline btn-sm btn-delete-equipment" data-id="${item.id}" style="color: var(--color-danger); border-color: rgba(220, 38, 38, 0.4);">
+                Remove
               </button>
             </div>
           </td>
         </tr>
       `).join('');
 
-      // Bind Inventory Row Action Buttons
       tbody.querySelectorAll('.btn-edit-equipment').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const id = e.currentTarget.getAttribute('data-id');
@@ -261,7 +249,7 @@
           if (item) {
             item.status = item.status === 'maintenance' ? 'available' : 'maintenance';
             window.RentEquip.Storage.saveEquipment(item);
-            window.RentEquip.UI.showToast(`Updated status for ${item.title} to ${item.status}.`, 'info');
+            window.RentEquip.UI.showToast(`Updated ${item.title} status to ${item.status}.`, 'info');
           }
         });
       });
@@ -270,9 +258,9 @@
         btn.addEventListener('click', (e) => {
           const id = e.currentTarget.getAttribute('data-id');
           const item = window.RentEquip.Storage.getEquipmentById(id);
-          if (confirm(`Are you sure you want to delete ${item ? item.title : 'this equipment'} from your fleet?`)) {
+          if (confirm(`Remove ${item ? item.title : 'this item'} from your listings?`)) {
             window.RentEquip.Storage.deleteEquipment(id);
-            window.RentEquip.UI.showToast('Equipment removed from inventory.', 'info');
+            window.RentEquip.UI.showToast('Item removed from inventory.', 'info');
           }
         });
       });
@@ -289,11 +277,11 @@
       if (equipmentId) {
         const item = window.RentEquip.Storage.getEquipmentById(equipmentId);
         if (!item) return;
-        titleEl.textContent = `Edit Equipment: ${item.title}`;
+        titleEl.textContent = `Edit Listing: ${item.title}`;
         document.getElementById('eq-field-title').value = item.title;
         document.getElementById('eq-field-category').value = item.category;
         document.getElementById('eq-field-daily-rate').value = item.dailyRate;
-        document.getElementById('eq-field-weekly-rate').value = item.weeklyRate || item.dailyRate * 5;
+        document.getElementById('eq-field-weekly-rate').value = item.weeklyRate || item.dailyRate * 4;
         document.getElementById('eq-field-deposit').value = item.securityDeposit;
         document.getElementById('eq-field-location').value = item.location;
         document.getElementById('eq-field-image').value = item.image;
@@ -301,13 +289,13 @@
         document.getElementById('eq-field-license').checked = !!item.requiresOperatorLicense;
         document.getElementById('eq-field-featured').checked = !!item.featured;
       } else {
-        titleEl.textContent = 'Add New Commercial Equipment';
+        titleEl.textContent = 'List New Campus Equipment / Supply';
         form.reset();
-        document.getElementById('eq-field-daily-rate').value = '150';
-        document.getElementById('eq-field-weekly-rate').value = '750';
-        document.getElementById('eq-field-deposit').value = '400';
-        document.getElementById('eq-field-image').value = 'assets/images/excavator.svg';
-        document.getElementById('eq-field-location').value = 'Austin North Depot, Austin TX';
+        document.getElementById('eq-field-daily-rate').value = '20';
+        document.getElementById('eq-field-weekly-rate').value = '70';
+        document.getElementById('eq-field-deposit').value = '50';
+        document.getElementById('eq-field-image').value = 'assets/images/stationery.svg';
+        document.getElementById('eq-field-location').value = 'Kaveri Boys Hostel - Common Room';
       }
 
       window.RentEquip.UI.openModal('equipment-modal');
@@ -317,9 +305,9 @@
       const user = window.RentEquip.Auth.getUser();
       const title = document.getElementById('eq-field-title').value.trim();
       const category = document.getElementById('eq-field-category').value;
-      const dailyRate = Number(document.getElementById('eq-field-daily-rate').value) || 100;
-      const weeklyRate = Number(document.getElementById('eq-field-weekly-rate').value) || dailyRate * 5;
-      const securityDeposit = Number(document.getElementById('eq-field-deposit').value) || 300;
+      const dailyRate = Number(document.getElementById('eq-field-daily-rate').value) || 10;
+      const weeklyRate = Number(document.getElementById('eq-field-weekly-rate').value) || dailyRate * 4;
+      const securityDeposit = Number(document.getElementById('eq-field-deposit').value) || 50;
       const location = document.getElementById('eq-field-location').value.trim();
       const image = document.getElementById('eq-field-image').value;
       const description = document.getElementById('eq-field-description').value.trim();
@@ -332,42 +320,40 @@
         dailyRate,
         weeklyRate,
         securityDeposit,
-        replacementValue: dailyRate * 120,
+        replacementValue: securityDeposit * 3,
         location,
         image,
         description,
         requiresOperatorLicense,
         featured,
+        condition: 'Pristine / Like New',
         ownerId: user.id,
         ownerName: user.name,
         ownerRating: user.rating || 4.9,
         specs: [
-          { label: 'Category Grade', value: 'Industrial Duty' },
-          { label: 'Operational Power', value: 'Standard Commercial' }
+          { label: 'Condition', value: 'Pristine / Like New' },
+          { label: 'Pickup Point', value: location }
         ],
         features: [
-          'Pre-Inspected & Cleaned Fleet Unit',
-          'Full Fluid & Tank Verification Completed',
-          'Operator Manual Included in On-Board Compartment'
+          'Pre-Checked & Cleaned',
+          'Academic Tested Quality',
+          'Peer Borrow Guarantee'
         ]
       };
 
       if (this.editingEquipmentId) {
         equipmentData.id = this.editingEquipmentId;
         window.RentEquip.Storage.saveEquipment(equipmentData);
-        window.RentEquip.UI.showToast(`Updated equipment: ${title}`, 'success');
+        window.RentEquip.UI.showToast(`Updated item: ${title}`, 'success');
       } else {
         const created = window.RentEquip.Storage.saveEquipment(equipmentData);
-        window.RentEquip.UI.showToast(`Equipment listing created: ${created.title}`, 'success');
+        window.RentEquip.UI.showToast(`New item listed: ${created.title}`, 'success');
       }
 
       window.RentEquip.UI.closeModal('equipment-modal');
       this.editingEquipmentId = null;
     },
 
-    // -------------------------------------------------------------
-    // BOOKING APPROVALS & REJECTIONS
-    // -------------------------------------------------------------
     renderBookingsTable() {
       const tbody = document.getElementById('owner-bookings-tbody');
       if (!tbody) return;
@@ -395,7 +381,7 @@
             </td>
             <td>
               <div><strong>${b.customerName}</strong></div>
-              <div class="table-item-sub">${b.customerCompany || 'Commercial Renter'}</div>
+              <div class="table-item-sub">${b.customerCompany || 'Student'}</div>
             </td>
             <td>
               <div><strong>${Calc.formatDate(b.startDate)}</strong> to <strong>${Calc.formatDate(b.endDate)}</strong></div>
@@ -430,13 +416,13 @@
       if (b.status === 'returned') {
         return `
           <button class="btn btn-primary btn-sm btn-open-inspection" data-id="${b.id}">
-            Perform Inspection
+            Check &amp; Settle Deposit
           </button>
         `;
       }
       if (b.status === 'active') {
         return `
-          <span class="badge badge-active">Unit In Field</span>
+          <span class="badge badge-active">With Student</span>
         `;
       }
       if (b.status === 'approved') {
@@ -446,7 +432,7 @@
       }
       if (b.status === 'completed') {
         return `
-          <span class="badge badge-completed">Settled &amp; Closed</span>
+          <span class="badge badge-completed">Settled &amp; Returned</span>
         `;
       }
       if (b.status === 'rejected') {
@@ -465,7 +451,7 @@
         btn.addEventListener('click', (e) => {
           const id = e.currentTarget.getAttribute('data-id');
           window.RentEquip.Storage.transitionBookingStatus(id, 'approved');
-          window.RentEquip.UI.showToast(`Booking #${id} approved! Customer notified for equipment pickup.`, 'success');
+          window.RentEquip.UI.showToast(`Request #${id} approved! Student notified for pickup.`, 'success');
         });
       });
 
@@ -495,17 +481,14 @@
     submitRejection() {
       if (!this.selectedBookingId) return;
       const reasonInput = document.getElementById('reject-reason-input');
-      const reason = reasonInput ? reasonInput.value.trim() : 'Schedule conflict';
+      const reason = reasonInput ? reasonInput.value.trim() : 'Item currently in personal use for exam';
 
       window.RentEquip.Storage.transitionBookingStatus(this.selectedBookingId, 'rejected', { reason });
       window.RentEquip.UI.closeModal('reject-modal');
-      window.RentEquip.UI.showToast(`Request #${this.selectedBookingId} declined. Customer issued full simulated refund.`, 'info');
+      window.RentEquip.UI.showToast(`Request #${this.selectedBookingId} declined. Student issued full simulated refund.`, 'info');
       this.selectedBookingId = null;
     },
 
-    // -------------------------------------------------------------
-    // RETURNS & INSPECTION WORKFLOW
-    // -------------------------------------------------------------
     renderInspectionsTable() {
       const tbody = document.getElementById('inspections-tbody');
       const emptyState = document.getElementById('inspections-empty-state');
@@ -548,19 +531,19 @@
               <div class="table-item-sub">Scheduled: ${Calc.formatDate(b.endDate)}</div>
             </td>
             <td>
-              <div>Escrow Deposit: <strong>${Calc.formatCurrency(b.securityDeposit)}</strong></div>
-              ${b.inspection ? `<div class="table-item-sub" style="color: #34d399;">Refunded: ${Calc.formatCurrency(b.inspection.depositRefunded)}</div>` : ''}
+              <div>Deposit: <strong>${Calc.formatCurrency(b.securityDeposit)}</strong></div>
+              ${b.inspection ? `<div class="table-item-sub" style="color: var(--color-success); font-weight: 700;">Refunded: ${Calc.formatCurrency(b.inspection.depositRefunded)}</div>` : ''}
             </td>
             <td>
               ${isNeedsInspect 
-                ? '<span class="badge badge-returned"><span class="badge-dot"></span> Inspection Pending</span>' 
-                : '<span class="badge badge-completed">Inspection Finalized</span>'
+                ? '<span class="badge badge-returned"><span class="badge-dot"></span> Return Check Pending</span>' 
+                : '<span class="badge badge-completed">Checked &amp; Refunded</span>'
               }
             </td>
             <td>
               ${isNeedsInspect ? `
                 <button class="btn btn-primary btn-sm btn-open-inspection" data-id="${b.id}">
-                  Inspect &amp; Settle Refund
+                  Check &amp; Settle Refund
                 </button>
               ` : `
                 <button class="btn btn-outline btn-sm btn-view-inspection-report" data-id="${b.id}">
@@ -599,13 +582,12 @@
 
       if (modalTitle) modalTitle.textContent = `Return Inspection: ${b.equipmentTitle}`;
 
-      // Reset fields
       document.getElementById('inspect-damage-fee').value = '0';
       document.getElementById('inspect-condition-val').value = 'pristine';
       document.querySelectorAll('.condition-btn').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-condition') === 'pristine');
       });
-      document.getElementById('inspect-notes').value = 'Clean return, machinery undamaged, fluids refueled to standard operating level.';
+      document.getElementById('inspect-notes').value = 'Clean return, complete set, fully working order.';
 
       const actualReturn = b.actualReturnDate || Calc.getTodayISO();
       const overdueDays = Calc.calculateOverdueDays(b.endDate, actualReturn);
@@ -614,24 +596,24 @@
       if (unitSummary) {
         unitSummary.innerHTML = `
           <div class="inspection-dates-row">
-            <span>Scheduled End Date:</span>
+            <span>Scheduled Return Date:</span>
             <strong>${Calc.formatDate(b.endDate)}</strong>
           </div>
           <div class="inspection-dates-row">
-            <span>Actual Return Date:</span>
+            <span>Actual Handover Date:</span>
             <strong>${Calc.formatDate(actualReturn)}</strong>
           </div>
           <div class="inspection-dates-row">
             <span>Security Deposit on Hold:</span>
-            <strong style="color: #34d399;">${Calc.formatCurrency(b.securityDeposit)}</strong>
+            <strong style="color: var(--color-success);">${Calc.formatCurrency(b.securityDeposit)}</strong>
           </div>
           ${overdueDays > 0 ? `
             <div class="overdue-warning-banner" style="margin-top: 0.75rem;">
-              ⚠️ <strong>Late Return Detected:</strong> Unit was returned ${overdueDays} days late. Standard late penalty rate applies (1.5x daily rate = ${Calc.formatCurrency(lateFee)}).
+              ⚠️ <strong>Late Return Detected:</strong> Item was returned ${overdueDays} days late. Standard student late fee (1.25x daily rate = ${Calc.formatCurrency(lateFee)}) will be deducted.
             </div>
           ` : `
-            <div style="font-size: 0.8rem; color: #34d399; margin-top: 0.5rem;">
-              ✓ Returned on schedule. Zero late penalty.
+            <div style="font-size: 0.85rem; color: var(--color-success); margin-top: 0.5rem; font-weight: 700;">
+              ✓ Returned on time! Zero late penalty.
             </div>
           `}
         `;
@@ -666,24 +648,24 @@
             <strong>${Calc.formatCurrency(settlement.originalDeposit)}</strong>
           </div>
           <div class="settlement-row">
-            <span>Late Return Penalty (${settlement.lateDays} days late):</span>
-            <span style="color: ${settlement.latePenaltyFee > 0 ? '#ef4444' : 'inherit'};">
+            <span>Late Penalty (${settlement.lateDays} days late):</span>
+            <span style="color: ${settlement.latePenaltyFee > 0 ? '#dc2626' : 'inherit'}; font-weight: 700;">
               - ${Calc.formatCurrency(settlement.latePenaltyFee)}
             </span>
           </div>
           <div class="settlement-row">
-            <span>Physical Damage Deductions:</span>
-            <span style="color: ${settlement.damageFee > 0 ? '#ef4444' : 'inherit'};">
+            <span>Damage / Missing Item Deductions:</span>
+            <span style="color: ${settlement.damageFee > 0 ? '#dc2626' : 'inherit'}; font-weight: 700;">
               - ${Calc.formatCurrency(settlement.damageFee)}
             </span>
           </div>
           <div class="settlement-row total-refund">
-            <span>Net Deposit Refund to Customer:</span>
+            <span>Net Deposit Refund to Student:</span>
             <span class="settlement-amount">${Calc.formatCurrency(settlement.depositRefund)}</span>
           </div>
           ${settlement.additionalAmountOwed > 0 ? `
-            <div style="margin-top: 0.5rem; font-size: 0.82rem; color: #ef4444;">
-              ⚠️ Deductions exceed security deposit! Customer balance due: ${Calc.formatCurrency(settlement.additionalAmountOwed)}
+            <div style="margin-top: 0.5rem; font-size: 0.82rem; color: #dc2626; font-weight: 700;">
+              ⚠️ Deductions exceed security deposit! Balance due: ${Calc.formatCurrency(settlement.additionalAmountOwed)}
             </div>
           ` : ''}
         `;
@@ -733,7 +715,7 @@
       if (!b || !b.inspection) return;
 
       const Calc = window.RentEquip.Calc;
-      alert(`Inspection Report for ${b.equipmentTitle} (#${b.id}):\n\nCondition: ${b.inspection.condition.toUpperCase()}\nLate Penalty: ${Calc.formatCurrency(b.inspection.latePenaltyFee)} (${b.inspection.lateDays} days)\nDamage Deductions: ${Calc.formatCurrency(b.inspection.damageFee)}\nDeposit Refunded: ${Calc.formatCurrency(b.inspection.depositRefunded)}\n\nNotes: "${b.inspection.damageNotes}"\nInspected by: ${b.inspection.inspectedBy}`);
+      alert(`Return Report for ${b.equipmentTitle} (#${b.id}):\n\nCondition: ${b.inspection.condition.toUpperCase()}\nLate Penalty: ${Calc.formatCurrency(b.inspection.latePenaltyFee)} (${b.inspection.lateDays} days)\nDamage Deductions: ${Calc.formatCurrency(b.inspection.damageFee)}\nDeposit Refunded: ${Calc.formatCurrency(b.inspection.depositRefunded)}\n\nNotes: "${b.inspection.damageNotes}"\nChecked by: ${b.inspection.inspectedBy}`);
     }
   };
 

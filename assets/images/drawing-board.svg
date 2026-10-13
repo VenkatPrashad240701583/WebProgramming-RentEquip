@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="pineWood" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fed7aa"/>
+      <stop offset="100%" stop-color="#fba465"/>
+    </linearGradient>
+    <linearGradient id="paperWhite" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="#f8fafc"/>
+  
+  <!-- Engineering Drawing Board (Pine Wood) -->
+  <g transform="translate(60, 60)">
+    <!-- Board Base with Beveled Ebony Edge on Left -->
+    <rect x="0" y="0" width="480" height="290" rx="8" fill="url(#pineWood)" stroke="#ea580c" stroke-width="3"/>
+    <!-- Black Ebony Edge Guide on Left -->
+    <rect x="0" y="0" width="16" height="290" rx="4" fill="#1e293b"/>
+
+    <!-- A2 Drawing Sheet Clipped on Board -->
+    <rect x="50" y="25" width="390" height="240" fill="url(#paperWhite)" stroke="#cbd5e1" stroke-width="1.5"/>
+    <!-- Title Block on Sheet Bottom Right -->
+    <rect x="290" y="215" width="140" height="40" fill="none" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="290" y1="235" x2="430" y2="235" stroke="#94a3b8" stroke-width="1"/>
+    <text x="300" y="230" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" fill="#64748b">ENGINEERING GRAPHICS</text>
+    <text x="300" y="250" font-family="system-ui, sans-serif" font-size="8" fill="#94a3b8">SHEET NO: 04 • PROJECTIONS</text>
+
+    <!-- Isometric Orthographic Line Sketches on Sheet -->
+    <polygon points="120,60 190,40 230,70 160,90" fill="none" stroke="#0284c7" stroke-width="2"/>
+    <polygon points="120,60 160,90 160,150 120,120" fill="none" stroke="#0284c7" stroke-width="2"/>
+    <polygon points="160,90 230,70 230,130 160,150" fill="none" stroke="#0284c7" stroke-width="2"/>
+    <!-- Circle Projection -->
+    <ellipse cx="320" cy="110" rx="40" ry="25" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+    <line x1="320" y1="80" x2="320" y2="140" stroke="#f43f5e" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="270" y1="110" x2="370" y2="110" stroke="#f43f5e" stroke-width="1" stroke-dasharray="4 4"/>
+
+    <!-- 4 Board Clips -->
+    <rect x="45" y="20" width="22" height="12" rx="3" fill="#64748b" stroke="#334155" stroke-width="1"/>
+    <rect x="425" y="20" width="22" height="12" rx="3" fill="#64748b" stroke="#334155" stroke-width="1"/>
+    <rect x="45" y="255" width="22" height="12" rx="3" fill="#64748b" stroke="#334155" stroke-width="1"/>
+    <rect x="425" y="255" width="22" height="12" rx="3" fill="#64748b" stroke="#334155" stroke-width="1"/>
+  </g>
+
+  <text x="48" y="40" fill="#c2410c" font-size="16" font-family="system-ui, sans-serif" font-weight="800">ENGINEERING DRAWING BOARD</text>
+  <text x="350" y="40" fill="#ea580c" font-size="12" font-family="system-ui, sans-serif">Imperial D1 Size (Pine Wood with Clips)</text>
+</svg>

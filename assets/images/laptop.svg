@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="laptopLid" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="#f8fafc"/>
+
+  <!-- Student Laptop Open View -->
+  <g transform="translate(140, 60)">
+    <!-- Screen Bezel -->
+    <rect x="25" y="0" width="270" height="175" rx="10" fill="url(#laptopLid)" stroke="#1e293b" stroke-width="2"/>
+    <!-- Web Camera Dot -->
+    <circle cx="160" cy="8" r="3" fill="#64748b"/>
+    <!-- Code Editor Screen -->
+    <rect x="35" y="18" width="250" height="145" rx="4" fill="#090d16"/>
+    <!-- Code lines in editor -->
+    <text x="45" y="38" font-family="monospace, monospace" font-size="10" fill="#38bdf8">const project = new CampusRental({</text>
+    <text x="55" y="55" font-family="monospace, monospace" font-size="10" fill="#a78bfa">  category: "Electronics",</text>
+    <text x="55" y="72" font-family="monospace, monospace" font-size="10" fill="#4ade80">  studentDiscount: true,</text>
+    <text x="55" y="89" font-family="monospace, monospace" font-size="10" fill="#f59e0b">  depositRefundable: 100</text>
+    <text x="45" y="106" font-family="monospace, monospace" font-size="10" fill="#38bdf8">});</text>
+    <text x="45" y="128" font-family="monospace, monospace" font-size="10" fill="#94a3b8">// Output: Ready for Lab Exam</text>
+    <rect x="45" y="136" width="6" height="12" fill="#38bdf8"/>
+
+    <!-- Keyboard Base / Chassis -->
+    <polygon points="0,225 320,225 295,175 25,175" fill="#475569" stroke="#334155" stroke-width="1.5"/>
+    <polygon points="35,182 285,182 275,210 45,210" fill="#1e293b"/>
+    <!-- Touchpad -->
+    <rect x="125" y="213" width="70" height="10" rx="2" fill="#334155"/>
+  </g>
+
+  <!-- External USB Mouse & Pendrive alongside -->
+  <g transform="translate(450, 240)">
+    <!-- Wireless Mouse -->
+    <ellipse cx="25" cy="40" rx="18" ry="26" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <line x1="25" y1="16" x2="25" y2="38" stroke="#64748b" stroke-width="1.5"/>
+    <rect x="23" y="24" width="4" height="8" rx="2" fill="#38bdf8"/>
+  </g>
+
+  <text x="48" y="44" fill="#0f172a" font-size="16" font-family="system-ui, sans-serif" font-weight="800">STUDENT CODING LAPTOP</text>
+  <text x="340" y="44" fill="#0284c7" font-size="12" font-family="system-ui, sans-serif">Core i5 • 16GB RAM • SSD • Dev Tools Installed</text>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ironHandle" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="#f8fafc"/>
+
+  <!-- Soldering Stand with Spring Coil -->
+  <g transform="translate(130, 180)">
+    <!-- Heavy Metal Base -->
+    <rect x="0" y="80" width="120" height="24" rx="4" fill="#334155" stroke="#1e293b" stroke-width="2"/>
+    <!-- Sponge tray -->
+    <rect x="15" y="83" width="40" height="18" rx="2" fill="#eab308"/>
+
+    <!-- Spring Iron Holder -->
+    <g transform="rotate(-35 80 80)">
+      <ellipse cx="80" cy="30" rx="18" ry="8" fill="none" stroke="#64748b" stroke-width="4"/>
+      <ellipse cx="80" cy="45" rx="18" ry="8" fill="none" stroke="#64748b" stroke-width="4"/>
+      <ellipse cx="80" cy="60" rx="18" ry="8" fill="none" stroke="#64748b" stroke-width="4"/>
+      <ellipse cx="80" cy="75" rx="18" ry="8" fill="none" stroke="#64748b" stroke-width="4"/>
+    </g>
+  </g>
+
+  <!-- Temperature Controlled Soldering Iron -->
+  <g transform="translate(230, 140) rotate(-25)">
+    <!-- Cord -->
+    <path d="M-60 15 C-40 25, -20 10, 0 15" stroke="#1e293b" stroke-width="6" fill="none"/>
+    <!-- Heat Resistant Ergonomic Grip Handle -->
+    <rect x="0" y="0" width="140" height="30" rx="10" fill="url(#ironHandle)"/>
+    <rect x="30" y="4" width="40" height="22" rx="4" fill="#1e293b"/>
+    <text x="50" y="19" font-family="monospace, monospace" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">350°C</text>
+
+    <!-- Chrome Barrel Shaft -->
+    <rect x="140" y="8" width="80" height="14" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+    <!-- Heating Element Collar -->
+    <rect x="220" y="6" width="12" height="18" rx="2" fill="#475569"/>
+    <!-- Pointed Copper-Plated Chisel Tip -->
+    <polygon points="232,8 260,15 232,22" fill="#f59e0b" stroke="#d97706" stroke-width="1"/>
+  </g>
+
+  <!-- Lead-free Solder Wire Spool Tube -->
+  <g transform="translate(420, 210)">
+    <rect x="0" y="0" width="55" height="85" rx="6" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>
+    <rect x="8" y="20" width="39" height="45" fill="#3b82f6"/>
+    <text x="27" y="45" font-family="system-ui, sans-serif" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">SOLDER</text>
+    <text x="27" y="55" font-family="system-ui, sans-serif" font-size="7" fill="#ffffff" text-anchor="middle">60/40 ROSIN</text>
+    <!-- Wire sticking out -->
+    <path d="M27 0 C25 -30, 45 -40, 20 -60" stroke="#94a3b8" stroke-width="3" fill="none"/>
+  </g>
+
+  <text x="48" y="44" fill="#1e293b" font-size="16" font-family="system-ui, sans-serif" font-weight="800">SOLDERING STATION KIT</text>
+  <text x="310" y="44" fill="#2563eb" font-size="12" font-family="system-ui, sans-serif">60W Temp-Control Iron + Stand &amp; Wire</text>
+</svg>

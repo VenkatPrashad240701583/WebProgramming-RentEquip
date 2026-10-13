@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="coatGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="#f0fdf4"/>
+
+  <!-- Lab Coat Body -->
+  <g transform="translate(180, 80)">
+    <!-- Shoulders and Coat Silhouette -->
+    <path d="M70 20 L20 80 L50 260 L190 260 L220 80 L170 20 L120 40 Z" fill="url(#coatGrad)" stroke="#94a3b8" stroke-width="2.5"/>
+
+    <!-- Lapels / Collar -->
+    <polygon points="70,20 120,80 100,20" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+    <polygon points="170,20 120,80 140,20" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+
+    <!-- Front Opening & Buttons -->
+    <line x1="120" y1="80" x2="120" y2="260" stroke="#cbd5e1" stroke-width="2"/>
+    <circle cx="120" cy="115" r="4" fill="#64748b"/>
+    <circle cx="120" cy="155" r="4" fill="#64748b"/>
+    <circle cx="120" cy="195" r="4" fill="#64748b"/>
+    <circle cx="120" cy="235" r="4" fill="#64748b"/>
+
+    <!-- Chest Pocket with Pen -->
+    <rect x="70" y="95" width="30" height="36" rx="3" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+    <!-- Blue gel pen in pocket -->
+    <rect x="76" y="80" width="6" height="25" rx="2" fill="#2563eb"/>
+    <rect x="85" y="84" width="5" height="20" rx="2" fill="#dc2626"/>
+
+    <!-- Two Lower Deep Pockets -->
+    <rect x="55" y="180" width="40" height="48" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+    <rect x="145" y="180" width="40" height="48" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  </g>
+
+  <!-- Clear Lab Safety Goggles placed beside -->
+  <g transform="translate(380, 140) rotate(15)">
+    <!-- Dual lenses -->
+    <rect x="0" y="0" width="60" height="45" rx="12" fill="rgba(56,189,248,0.25)" stroke="#0284c7" stroke-width="3"/>
+    <rect x="65" y="0" width="60" height="45" rx="12" fill="rgba(56,189,248,0.25)" stroke="#0284c7" stroke-width="3"/>
+    <!-- Bridge connector -->
+    <path d="M58 20 C62 14, 63 14, 67 20" stroke="#0284c7" stroke-width="4" fill="none"/>
+    <!-- Elastic strap -->
+    <path d="M0 22 C-30 20, -30 30, 0 35" stroke="#1e293b" stroke-width="4" fill="none"/>
+    <path d="M125 22 C155 20, 155 30, 125 35" stroke="#1e293b" stroke-width="4" fill="none"/>
+  </g>
+
+  <!-- Clean Nitrile Gloves pair -->
+  <g transform="translate(80, 200) scale(0.8)">
+    <path d="M30 40 C30 10, 50 10, 50 40 L50 80 L20 80 Z" fill="#60a5fa" opacity="0.8"/>
+    <path d="M45 35 C45 5, 65 5, 65 35 L65 80 L35 80 Z" fill="#3b82f6" opacity="0.8"/>
+  </g>
+
+  <text x="48" y="44" fill="#15803d" font-size="16" font-family="system-ui, sans-serif" font-weight="800">COLLEGE LAB ESSENTIALS</text>
+  <text x="320" y="44" fill="#16a34a" font-size="12" font-family="system-ui, sans-serif">100% Cotton Lab Coat + UV Safety Goggles</text>
+</svg>

@@ -1,6 +1,7 @@
 /**
- * RentEquip - Calculation Engine & Date Utilities
- * Pure financial, rental duration, and date overlap calculations.
+ * RentEquip - Campus Calculation Engine & Date Utilities
+ * Pure financial calculations, student-friendly fee structures in Indian Rupees (₹),
+ * emergency same-day rental durations, and conflict detection.
  */
 
 (function (window) {
@@ -31,15 +32,15 @@
     },
 
     /**
-     * Formats date nicely for display: "Oct 14, 2026"
+     * Formats date nicely for student display: "14 Oct 2026"
      */
     formatDate(dateStr) {
       if (!dateStr) return 'N/A';
       const d = this.parseDate(dateStr);
       if (isNaN(d.getTime())) return dateStr;
-      return d.toLocaleDateString('en-US', {
-        month: 'short',
+      return d.toLocaleDateString('en-IN', {
         day: 'numeric',
+        month: 'short',
         year: 'numeric'
       });
     },
@@ -63,8 +64,7 @@
 
     /**
      * Calculates billable rental days.
-     * Same day (pick up & return same day) = 1 day.
-     * Consecutive days (e.g. Oct 10 to Oct 12) = 2 days (48 hrs) or 2 billing cycles.
+     * Same day (urgent exam / lab rental returned same evening) = 1 day minimum.
      */
     calculateRentalDays(startDate, endDate) {
       if (!startDate || !endDate) return 0;
@@ -77,12 +77,12 @@
       const diffTime = end.getTime() - start.getTime();
       const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
-      // Same day pickup and return = 1 day minimum
+      // Same day pickup and return = 1 day minimum for lab/exam borrow
       return diffDays === 0 ? 1 : diffDays;
     },
 
     /**
-     * Comprehensive upfront rental cost calculation
+     * Upfront campus rental cost calculation
      */
     calculateQuote(dailyRate, securityDeposit, startDate, endDate) {
       const rate = Number(dailyRate) || 0;
@@ -98,14 +98,15 @@
           securityDeposit: deposit,
           totalUpfront: 0,
           isValid: false,
-          error: 'End date must be on or after start date.'
+          error: 'Return date must be on or after pickup date.'
         };
       }
 
-      // Base rental fee
+      // Base student rental fee
       const rentalFee = Math.round(rate * days * 100) / 100;
-      // 6% platform insurance & processing fee
-      const serviceFee = Math.round(rentalFee * 0.06 * 100) / 100;
+      // Nominal student community maintenance fee (5% platform pool, max ₹15)
+      const rawFee = rentalFee * 0.05;
+      const serviceFee = Math.round(Math.min(15, rawFee) * 100) / 100;
       // Total upfront charge: rental fee + service fee + refundable security deposit
       const totalUpfront = Math.round((rentalFee + serviceFee + deposit) * 100) / 100;
 
@@ -151,17 +152,17 @@
     },
 
     /**
-     * Calculates late return penalty (1.5x daily rate for each overdue day)
+     * Calculates late return penalty (student rate: 1.25x daily rate for each overdue day)
      */
     calculateLatePenalty(dailyRate, lateDays) {
       const days = Number(lateDays) || 0;
       const rate = Number(dailyRate) || 0;
       if (days <= 0) return 0;
-      return Math.round(days * (rate * 1.5) * 100) / 100;
+      return Math.round(days * (rate * 1.25) * 100) / 100;
     },
 
     /**
-     * Calculates comprehensive return settlement and deposit refund
+     * Calculates return settlement and deposit refund
      */
     calculateSettlement({
       securityDeposit = 0,
@@ -180,7 +181,7 @@
 
       // Deposit refund is the deposit minus deductions (bounded at 0)
       const depositRefund = Math.max(0, Math.round((deposit - totalDeductions) * 100) / 100);
-      // If deductions exceed security deposit, customer owes the difference
+      // If deductions exceed security deposit, student owes the difference
       const additionalAmountOwed = Math.max(0, Math.round((totalDeductions - deposit) * 100) / 100);
 
       return {
@@ -198,16 +199,14 @@
     },
 
     /**
-     * Formats currency as $XX.XX
+     * Formats currency as ₹XX in Indian Rupee format
      */
     formatCurrency(amount) {
       const num = Number(amount) || 0;
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      }).format(num);
+      if (Number.isInteger(num)) {
+        return `₹${num.toLocaleString('en-IN')}`;
+      }
+      return `₹${num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
   };
 

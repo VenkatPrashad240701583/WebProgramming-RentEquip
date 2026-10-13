@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="umbCanopy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="#f0f9ff"/>
+
+  <!-- Raindrops in background -->
+  <g opacity="0.3">
+    <line x1="80" y1="70" x2="60" y2="120" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/>
+    <line x1="180" y1="40" x2="160" y2="90" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/>
+    <line x1="480" y1="80" x2="460" y2="130" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/>
+    <line x1="520" y1="180" x2="500" y2="230" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Campus Storm-proof Umbrella (Open Canopy) -->
+  <g transform="translate(140, 70)">
+    <!-- Canopy Arc Dome -->
+    <path d="M10,170 C10,40, 310,40, 310,170 C270,155, 230,170, 210,160 C180,155, 140,170, 110,160 C70,155, 40,170, 10,170 Z" fill="url(#umbCanopy)" stroke="#075985" stroke-width="3"/>
+    
+    <!-- Rib arcs -->
+    <path d="M160 50 Q110 100 110 160" stroke="#38bdf8" stroke-width="2" fill="none"/>
+    <path d="M160 50 Q210 100 210 160" stroke="#38bdf8" stroke-width="2" fill="none"/>
+    
+    <!-- Top Ferrul Tip -->
+    <rect x="156" y="32" width="8" height="20" rx="3" fill="#1e293b"/>
+    <circle cx="160" cy="30" r="5" fill="#f59e0b"/>
+
+    <!-- Steel Shaft -->
+    <rect x="158" y="150" width="6" height="130" fill="#64748b"/>
+
+    <!-- Classic J-Hook Curved Wooden/Rubber Handle -->
+    <path d="M161,280 V305 C161,335, 120,335, 120,305" stroke="#f59e0b" stroke-width="12" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <text x="48" y="44" fill="#0369a1" font-size="16" font-family="system-ui, sans-serif" font-weight="800">MONSOON CAMPUS UMBRELLA</text>
+  <text x="330" y="44" fill="#0284c7" font-size="12" font-family="system-ui, sans-serif">Windproof Ribs + Auto Open + Ergonomic J-Grip</text>
+</svg>

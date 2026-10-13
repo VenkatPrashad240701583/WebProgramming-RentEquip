@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="tinBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="metalSilver" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="#f0fdf4"/>
+  <rect x="0" y="320" width="600" height="80" fill="#dcfce7"/>
+
+  <!-- Metal Geometry Box Tin Base (Open) -->
+  <rect x="140" y="140" width="320" height="190" rx="14" fill="#0c4a6e" stroke="#0369a1" stroke-width="4"/>
+  <rect x="150" y="150" width="300" height="170" rx="10" fill="url(#tinBg)"/>
+
+  <!-- Protractor (Semi-circle) -->
+  <g transform="translate(180, 180)">
+    <path d="M0,70 A70,70 0 0,1 140,70 Z" fill="rgba(255,255,255,0.7)" stroke="#0369a1" stroke-width="2"/>
+    <path d="M25,70 A45,45 0 0,1 115,70 Z" fill="#0284c7" stroke="#0369a1" stroke-width="1.5"/>
+    <circle cx="70" cy="70" r="3" fill="#0369a1"/>
+    <!-- Angle ticks -->
+    <line x1="70" y1="5" x2="70" y2="15" stroke="#0369a1" stroke-width="1.5"/>
+    <line x1="35" y1="20" x2="42" y2="28" stroke="#0369a1" stroke-width="1.5"/>
+    <line x1="105" y1="20" x2="98" y2="28" stroke="#0369a1" stroke-width="1.5"/>
+  </g>
+
+  <!-- Big Steel Compass -->
+  <g transform="translate(320, 160) rotate(15)">
+    <!-- Hinge head -->
+    <circle cx="50" cy="20" r="10" fill="#64748b" stroke="#334155" stroke-width="2"/>
+    <circle cx="50" cy="20" r="4" fill="#f8fafc"/>
+    <!-- Left Needle Leg -->
+    <polygon points="46,26 40,130 43,145 48,26" fill="url(#metalSilver)" stroke="#475569" stroke-width="1"/>
+    <!-- Right Pencil Holder Leg -->
+    <polygon points="54,26 62,110 58,110 52,26" fill="url(#metalSilver)" stroke="#475569" stroke-width="1"/>
+    <!-- Pencil inserted in compass -->
+    <rect x="58" y="90" width="12" height="50" fill="#f59e0b" rx="2"/>
+    <polygon points="58,140 64,152 70,140" fill="#fed7aa"/>
+    <polygon points="62,148 64,152 66,148" fill="#1e293b"/>
+  </g>
+
+  <!-- Set Square (Triangle) -->
+  <polygon points="170,250 250,250 170,170" fill="rgba(255,255,255,0.7)" stroke="#0284c7" stroke-width="2"/>
+  <polygon points="182,240 230,240 182,192" fill="#0284c7"/>
+
+  <!-- Divider Instrument -->
+  <g transform="translate(390, 180) rotate(-20)">
+    <circle cx="20" cy="15" r="8" fill="#64748b"/>
+    <polygon points="17,20 10,120 12,130 19,20" fill="url(#metalSilver)"/>
+    <polygon points="23,20 28,120 26,130 21,20" fill="url(#metalSilver)"/>
+  </g>
+
+  <text x="48" y="52" fill="#0369a1" font-size="18" font-family="system-ui, sans-serif" font-weight="800">GEOMETRY BOX SET</text>
+  <text x="48" y="72" fill="#0284c7" font-size="12" font-family="system-ui, sans-serif">Classroom Compass, Divider, Scale &amp; Set Squares</text>
+</svg>

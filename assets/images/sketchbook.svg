@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <rect width="600" height="400" rx="16" fill="#fdf4ff"/>
+
+  <!-- Spiral Bound Sketchbook -->
+  <g transform="translate(130, 80)">
+    <!-- Black Kraft Hardcover -->
+    <rect x="30" y="20" width="280" height="230" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="2.5"/>
+    <rect x="40" y="30" width="260" height="210" fill="#f8fafc"/>
+
+    <!-- Sketch on paper (Geometric Architecture Perspective) -->
+    <polygon points="80,180 140,80 200,180" fill="none" stroke="#64748b" stroke-width="2"/>
+    <polygon points="140,80 220,110 200,180" fill="none" stroke="#64748b" stroke-width="2"/>
+    <circle cx="140" cy="135" r="25" fill="none" stroke="#ec4899" stroke-width="2" stroke-dasharray="4 4"/>
+
+    <!-- Spiral Wire Binding along left margin -->
+    <rect x="15" y="10" width="25" height="250" fill="none"/>
+    <ellipse cx="25" cy="40" rx="15" ry="5" fill="none" stroke="#64748b" stroke-width="3"/>
+    <ellipse cx="25" cy="65" rx="15" ry="5" fill="none" stroke="#64748b" stroke-width="3"/>
+    <ellipse cx="25" cy="90" rx="15" ry="5" fill="none" stroke="#64748b" stroke-width="3"/>
+    <ellipse cx="25" cy="115" rx="15" ry="5" fill="none" stroke="#64748b" stroke-width="3"/>
+    <ellipse cx="25" cy="140" rx="15" ry="5" fill="none" stroke="#64748b" stroke-width="3"/>
+    <ellipse cx="25" cy="165" rx="15" ry="5" fill="none" stroke="#64748b" stroke-width="3"/>
+    <ellipse cx="25" cy="190" rx="15" ry="5" fill="none" stroke="#64748b" stroke-width="3"/>
+    <ellipse cx="25" cy="215" rx="15" ry="5" fill="none" stroke="#64748b" stroke-width="3"/>
+    <ellipse cx="25" cy="240" rx="15" ry="5" fill="none" stroke="#64748b" stroke-width="3"/>
+  </g>
+
+  <!-- Dual-Tip Brush Marker Pen -->
+  <g transform="translate(390, 160) rotate(40)">
+    <rect x="0" y="0" width="16" height="180" rx="5" fill="#f43f5e"/>
+    <rect x="0" y="30" width="16" height="30" fill="#1e293b"/>
+    <polygon points="0,0 8,-20 16,0" fill="#ec4899"/>
+  </g>
+
+  <text x="48" y="44" fill="#86198f" font-size="16" font-family="system-ui, sans-serif" font-weight="800">A3 ART SKETCHBOOK</text>
+  <text x="320" y="44" fill="#c026d3" font-size="12" font-family="system-ui, sans-serif">160 GSM Heavyweight Spiral Pad + Brush Pen</text>
+</svg>

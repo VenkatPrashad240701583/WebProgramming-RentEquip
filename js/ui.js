@@ -1,5 +1,5 @@
 /**
- * RentEquip - Shared UI Framework & Interactive Components
+ * RentEquip - Campus Shared UI Framework & Interactive Components
  * Manages Header, Role Switcher, Mobile Navigation, Modals, Toasts, Badges, and Alerts.
  */
 
@@ -13,7 +13,6 @@
       this.initModalListeners();
       this.updateNotificationBadge();
 
-      // Listen for data updates to sync badges and state
       window.addEventListener('rentequip:change', () => {
         this.updateNotificationBadge();
       });
@@ -24,9 +23,6 @@
       });
     },
 
-    /**
-     * Renders standard top navigation bar across all pages
-     */
     renderHeader() {
       const headerEl = document.getElementById('main-header');
       if (!headerEl) return;
@@ -35,13 +31,12 @@
       const currentPath = window.location.pathname.split('/').pop() || 'index.html';
       const unreadCount = window.RentEquip.Storage.getUnreadNotificationCount(user.id);
 
-      // Links defined relative to project root
       const navLinks = [
-        { href: 'index.html', label: 'Marketplace', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
-        { href: 'customer.html', label: 'Customer Portal', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
-        { href: 'owner.html', label: 'Owner Portal', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
-        { href: 'admin.html', label: 'Admin Ops', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
-        { href: 'notifications.html', label: 'Alerts', icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9', badge: unreadCount }
+        { href: 'index.html', label: 'Campus Marketplace', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
+        { href: 'customer.html', label: 'My Borrows', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
+        { href: 'owner.html', label: 'Lender & Club Desk', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
+        { href: 'admin.html', label: 'SAC Council Admin', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
+        { href: 'notifications.html', label: 'Campus Alerts', icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9', badge: unreadCount }
       ];
 
       const users = window.RentEquip.Auth.getAllUsers();
@@ -49,18 +44,16 @@
       headerEl.innerHTML = `
         <div class="nav-container">
           <div class="nav-brand-section">
-            <a href="index.html" class="brand-logo" aria-label="RentEquip Home">
+            <a href="index.html" class="brand-logo" aria-label="RentEquip Campus Home">
               <span class="brand-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                 </svg>
               </span>
               <span class="brand-name">Rent<span class="brand-highlight">Equip</span></span>
             </a>
-            <span class="simulation-pill" title="Simulated environment with localStorage persistence">
-              <span class="simulation-dot"></span> SIMULATED TESTBENCH
+            <span class="simulation-pill" title="Simulated college campus equipment sharing">
+              <span class="simulation-dot"></span> 🎓 CAMPUS DEMO TESTBED
             </span>
           </div>
 
@@ -81,13 +74,13 @@
 
           <div class="nav-user-control">
             <div class="role-selector-wrapper">
-              <label for="role-select" class="sr-only">Simulated User Perspective</label>
+              <label for="role-select" class="sr-only">Student Perspective</label>
               <div class="role-selector">
                 <div class="role-avatar-circle" style="background: ${this.getUserColor(user.role)}">${user.avatar}</div>
-                <select id="role-select" class="role-dropdown" aria-label="Switch User Perspective">
+                <select id="role-select" class="role-dropdown" aria-label="Switch Student Perspective">
                   ${users.map(u => `
                     <option value="${u.id}" ${u.id === user.id ? 'selected' : ''}>
-                      ${u.name} — ${u.role.toUpperCase()}
+                      ${u.name} — ${u.role === 'customer' ? 'Student Renter' : u.role === 'owner' ? 'Club/Senior Host' : 'SAC Admin'}
                     </option>
                   `).join('')}
                 </select>
@@ -125,7 +118,7 @@
             <div class="mobile-drawer-footer">
               <div class="user-meta-summary">
                 <p class="user-meta-name"><strong>${user.name}</strong></p>
-                <p class="user-meta-role">Active Role: <span class="badge badge-${user.role}">${user.role.toUpperCase()}</span></p>
+                <p class="user-meta-role">Perspective: <span class="badge badge-${user.role}">${user.role.toUpperCase()}</span></p>
                 <p class="user-meta-email">${user.email}</p>
               </div>
             </div>
@@ -133,7 +126,6 @@
         </div>
       `;
 
-      // Role selector change listener
       const selectEl = document.getElementById('role-select');
       if (selectEl) {
         selectEl.addEventListener('change', (e) => {
@@ -141,7 +133,6 @@
         });
       }
 
-      // Mobile toggle button listener
       const toggleBtn = document.getElementById('mobile-toggle');
       const drawerEl = document.getElementById('mobile-drawer');
       if (toggleBtn && drawerEl) {
@@ -154,9 +145,6 @@
       }
     },
 
-    /**
-     * Renders clean, informative footer
-     */
     renderFooter() {
       const footerEl = document.getElementById('main-footer');
       if (!footerEl) return;
@@ -164,77 +152,78 @@
       footerEl.innerHTML = `
         <div class="footer-container">
           <div class="footer-grid">
-            <div class="footer-col brand-col">
-              <div class="brand-logo footer-logo">
+            <div class="brand-col">
+              <div class="brand-logo footer-logo" style="color: #ffffff;">
                 <span class="brand-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                   </svg>
                 </span>
-                <span class="brand-name">Rent<span class="brand-highlight">Equip</span></span>
+                <span class="brand-name" style="color: #ffffff;">Rent<span class="brand-highlight">Equip</span></span>
               </div>
               <p class="footer-desc">
-                High-performance commercial equipment rental marketplace running natively on client-side vanilla JavaScript &amp; HTML5.
+                College campus student equipment &amp; study resource sharing marketplace. Borrow lab coats, drafters, calculators, and electronics with zero friction.
               </p>
               <div class="footer-badges">
-                <span class="meta-tag">Zero Backend</span>
+                <span class="meta-tag">Student Community</span>
                 <span class="meta-tag">100% LocalStorage</span>
-                <span class="meta-tag">GitHub Pages Ready</span>
+                <span class="meta-tag">GitHub Pages Native</span>
               </div>
             </div>
 
             <div class="footer-col">
-              <h4 class="footer-heading">Platform Hubs</h4>
+              <h4 class="footer-heading">Campus Hubs</h4>
               <ul class="footer-links">
-                <li><a href="index.html">Marketplace Catalog</a></li>
-                <li><a href="customer.html">Customer Bookings</a></li>
-                <li><a href="owner.html">Equipment Owner Portal</a></li>
-                <li><a href="admin.html">Platform Administration</a></li>
-                <li><a href="notifications.html">Notifications &amp; Alerts</a></li>
+                <li><a href="index.html">Campus Catalog</a></li>
+                <li><a href="customer.html">My Borrowed Items</a></li>
+                <li><a href="owner.html">Student Lender Desk</a></li>
+                <li><a href="admin.html">SAC Council Admin</a></li>
+                <li><a href="notifications.html">Exam &amp; Return Alerts</a></li>
               </ul>
             </div>
 
             <div class="footer-col">
-              <h4 class="footer-heading">Simulated Scenarios</h4>
+              <h4 class="footer-heading">Student Scenarios</h4>
               <ul class="footer-links">
-                <li><span class="sim-bullet">•</span> Alex Rivera: Active, Returned &amp; Pending Rentals</li>
-                <li><span class="sim-bullet">•</span> Marcus Vance: Inventory CRUD &amp; Return Inspections</li>
-                <li><span class="sim-bullet">•</span> Elena Rostova: Platform KPIs &amp; Global Audits</li>
-                <li><span class="sim-bullet">•</span> Date Overlap &amp; Conflict Prevention Engine</li>
+                <li><span class="sim-bullet">•</span> <strong>Aarav Sharma</strong>: Active calculator borrow for math exam</li>
+                <li><span class="sim-bullet">•</span> <strong>Priya Patel</strong>: Robotics Club &amp; engineering drawing host</li>
+                <li><span class="sim-bullet">•</span> <strong>SAC Council</strong>: Campus equipment library &amp; lab oversight</li>
+                <li><span class="sim-bullet">•</span> Emergency same-day pickups for forgotten lab gear</li>
               </ul>
             </div>
 
             <div class="footer-col danger-zone-col">
               <h4 class="footer-heading">Demo Controls</h4>
-              <p class="footer-help-text">Reset all equipment, bookings, and notifications back to initial realistic demo state:</p>
-              <button class="btn btn-outline btn-sm btn-reset-demo" id="btn-reset-demo">
+              <p class="footer-help-text" style="color: #a3b8b0; font-size: 0.85rem; margin-bottom: 0.85rem;">
+                Reset all 50+ campus listings, student bookings, and alerts back to initial demo state:
+              </p>
+              <button class="btn btn-outline btn-sm btn-reset-demo" id="btn-reset-demo" style="background: #2a3d3a; color: #ffffff; border-color: #3b524e;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
                   <path d="M21 3v5h-5"></path>
                   <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
                   <path d="M3 21v-5h5"></path>
                 </svg>
-                Reset Demo Data
+                Reset Campus Data
               </button>
             </div>
           </div>
 
           <div class="footer-bottom">
-            <p>&copy; ${new Date().getFullYear()} RentEquip Marketplace. Built with vanilla HTML5, CSS3, and JavaScript.</p>
-            <p class="simulation-disclaimer">
-              <strong>Notice:</strong> All payments, security deposits, identities, and certifications displayed on RentEquip are simulated for demonstration purposes.
+            <p>&copy; ${new Date().getFullYear()} RentEquip Campus Network. Built with pure HTML5, CSS3, and Vanilla JavaScript.</p>
+            <p class="simulation-disclaimer" style="color: #728c83;">
+              <strong>Notice:</strong> All peer-to-peer student transactions, security deposits, and identity profiles are simulated in your browser.
             </p>
           </div>
         </div>
       `;
 
-      // Reset button listener
       const resetBtn = document.getElementById('btn-reset-demo');
       if (resetBtn) {
         resetBtn.addEventListener('click', () => {
-          if (confirm('Are you sure you want to reset all RentEquip data? Custom bookings, equipment, and reviews will be reset to factory defaults.')) {
+          if (confirm('Reset RentEquip campus inventory and bookings back to initial seed data?')) {
             window.RentEquip.Storage.resetToDefaults();
-            this.showToast('Demo data successfully restored to factory seed defaults.', 'success');
+            this.showToast('Campus data restored to default 50+ listings.', 'success');
             setTimeout(() => window.location.reload(), 400);
           }
         });
@@ -242,9 +231,9 @@
     },
 
     getUserColor(role) {
-      if (role === 'admin') return '#8b5cf6';
+      if (role === 'admin') return '#7c3aed';
       if (role === 'owner') return '#0284c7';
-      return '#f59e0b';
+      return '#15803d';
     },
 
     updateNotificationBadge() {
@@ -261,9 +250,6 @@
       });
     },
 
-    /**
-     * Toast System
-     */
     showToast(message, type = 'info', duration = 4000) {
       let container = document.getElementById('toast-container');
       if (!container) {
@@ -306,11 +292,7 @@
       setTimeout(dismiss, duration);
     },
 
-    /**
-     * Modal Controller
-     */
     initModalListeners() {
-      // Close modal on escape key
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           const openModal = document.querySelector('.modal.open');
@@ -320,7 +302,6 @@
         }
       });
 
-      // Close modal when clicking overlay background
       document.addEventListener('click', (e) => {
         if (e.target.classList.contains('modal-backdrop')) {
           const modal = e.target.closest('.modal');
@@ -338,7 +319,6 @@
       modal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
 
-      // Focus first input or button
       const focusable = modal.querySelector('button, input, select, textarea');
       if (focusable) focusable.focus();
     },
@@ -351,9 +331,6 @@
       document.body.classList.remove('modal-open');
     },
 
-    /**
-     * Status Badges Generator
-     */
     getStatusBadge(status, isOverdue = false) {
       if (isOverdue) {
         return `<span class="badge badge-overdue"><span class="badge-dot"></span> OVERDUE</span>`;
@@ -365,23 +342,23 @@
         case 'approved':
           return `<span class="badge badge-approved"><span class="badge-dot"></span> Approved — Ready for Pickup</span>`;
         case 'active':
-          return `<span class="badge badge-active"><span class="badge-dot"></span> Active Rental</span>`;
+          return `<span class="badge badge-active"><span class="badge-dot"></span> Currently Borrowed</span>`;
         case 'returned':
-          return `<span class="badge badge-returned"><span class="badge-dot"></span> Returned — Awaiting Inspection</span>`;
+          return `<span class="badge badge-returned"><span class="badge-dot"></span> Returned — Awaiting Check</span>`;
         case 'completed':
-          return `<span class="badge badge-completed"><span class="badge-dot"></span> Completed &amp; Settled</span>`;
+          return `<span class="badge badge-completed"><span class="badge-dot"></span> Returned &amp; Settled</span>`;
         case 'rejected':
           return `<span class="badge badge-rejected"><span class="badge-dot"></span> Declined</span>`;
         case 'cancelled':
-          return `<span class="badge badge-cancelled">Cancelled</span>`;
+          return `<span class="badge badge-completed">Cancelled</span>`;
         case 'available':
-          return `<span class="badge badge-available"><span class="badge-dot"></span> Available</span>`;
+          return `<span class="badge badge-available"><span class="badge-dot"></span> Available Now</span>`;
         case 'rented':
-          return `<span class="badge badge-rented"><span class="badge-dot"></span> Currently Rented</span>`;
+          return `<span class="badge badge-rented"><span class="badge-dot"></span> Out on Borrow</span>`;
         case 'maintenance':
-          return `<span class="badge badge-maintenance"><span class="badge-dot"></span> In Maintenance</span>`;
+          return `<span class="badge badge-maintenance"><span class="badge-dot"></span> Under Maintenance</span>`;
         default:
-          return `<span class="badge badge-default">${status}</span>`;
+          return `<span class="badge badge-available">${status}</span>`;
       }
     }
   };
@@ -389,7 +366,6 @@
   window.RentEquip = window.RentEquip || {};
   window.RentEquip.UI = UI;
 
-  // Auto initialize header/footer when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => UI.init());
   } else {

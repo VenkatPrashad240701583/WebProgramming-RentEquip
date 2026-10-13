@@ -1,6 +1,6 @@
 /**
- * RentEquip - Notification Center Controller (notifications.html)
- * Powers alert categorization, unread toggles, overdue warnings, and deep navigation links.
+ * RentEquip - Campus Notification Center Controller (notifications.html)
+ * Powers academic alerts, exam borrow reminders, overdue warnings, and deep navigation links.
  */
 
 (function (window) {
@@ -8,7 +8,7 @@
 
   const NotificationCenter = {
     activeFilter: 'all',
-    scope: 'user', // 'user' or 'all'
+    scope: 'user',
 
     init() {
       this.bindEvents();
@@ -19,7 +19,6 @@
     },
 
     bindEvents() {
-      // Filter tabs
       const tabs = document.getElementById('notif-filter-tabs');
       if (tabs) {
         tabs.addEventListener('click', (e) => {
@@ -32,7 +31,6 @@
         });
       }
 
-      // Mark all read button
       const markAllBtn = document.getElementById('btn-mark-all-read');
       if (markAllBtn) {
         markAllBtn.addEventListener('click', () => {
@@ -43,7 +41,6 @@
         });
       }
 
-      // Scope toggle (current user vs all platform alerts)
       const scopeToggle = document.getElementById('notif-scope-toggle');
       if (scopeToggle) {
         scopeToggle.addEventListener('change', (e) => {
@@ -76,13 +73,12 @@
       const Calc = window.RentEquip.Calc;
       const today = Calc.getTodayISO();
 
-      // Check if current user has any active overdue bookings
       const overdueBookings = bookings.filter(b => {
         if (b.status !== 'active') return false;
         if (b.endDate >= today) return false;
         if (user.role === 'customer') return b.customerId === user.id;
         if (user.role === 'owner') return b.ownerId === user.id;
-        return true; // Admin sees all
+        return true;
       });
 
       if (overdueBookings.length > 0) {
@@ -90,17 +86,17 @@
         const overdueDays = Calc.calculateOverdueDays(first.endDate, today);
         banner.style.display = 'block';
         banner.innerHTML = `
-          <div class="overdue-warning-banner" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1rem 1.25rem;">
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <span style="font-size: 1.5rem;">🚨</span>
+          <div class="overdue-warning-banner" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.15rem 1.4rem;">
+            <div style="display: flex; align-items: center; gap: 0.85rem;">
+              <span style="font-size: 1.6rem;">🚨</span>
               <div>
-                <strong>Overdue Equipment Notice:</strong> ${first.equipmentTitle} was scheduled for return on ${Calc.formatDate(first.endDate)} (${overdueDays} days past due).
-                <div style="font-size: 0.8rem; opacity: 0.85;">Late return penalty accumulating at standard daily rate multiplier.</div>
+                <strong>Overdue Item Return Alert:</strong> ${first.equipmentTitle} was scheduled for return on ${Calc.formatDate(first.endDate)} (${overdueDays} days late).
+                <div style="font-size: 0.82rem; opacity: 0.9; margin-top: 0.2rem;">Please return to the campus host promptly to release your security deposit.</div>
               </div>
             </div>
             <div>
               <a href="${user.role === 'owner' ? 'owner.html' : 'customer.html'}" class="btn btn-danger btn-sm">
-                ${user.role === 'owner' ? 'Manage Overdue Rental &rarr;' : 'Initiate Immediate Return &rarr;'}
+                ${user.role === 'owner' ? 'Inspect Overdue Item &rarr;' : 'Initiate Return Handover &rarr;'}
               </a>
             </div>
           </div>
@@ -136,7 +132,6 @@
 
       listEl.innerHTML = filtered.map(item => this.createNotificationItemHTML(item)).join('');
 
-      // Bind mark read listeners
       listEl.querySelectorAll('.btn-mark-single-read').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const id = e.currentTarget.getAttribute('data-id');
@@ -151,10 +146,10 @@
 
       let actionBtnText = 'View Details';
       if (item.type === 'booking_request') actionBtnText = 'Review &amp; Approve';
-      if (item.type === 'booking_approved') actionBtnText = 'Confirm Pickup';
-      if (item.type === 'return_submitted') actionBtnText = 'Inspect Condition';
-      if (item.type === 'inspection_completed') actionBtnText = 'View Settlement Receipt';
-      if (item.type === 'overdue_alert') actionBtnText = 'Resolve Overdue Status';
+      if (item.type === 'booking_approved') actionBtnText = 'Pickup Item';
+      if (item.type === 'return_submitted') actionBtnText = 'Check Condition &amp; Refund';
+      if (item.type === 'inspection_completed') actionBtnText = 'View Deposit Receipt';
+      if (item.type === 'overdue_alert') actionBtnText = 'Resolve Return';
 
       return `
         <div class="notification-item ${item.read ? '' : 'unread'}" id="notif-item-${item.id}">
@@ -172,17 +167,17 @@
 
             <div class="notification-actions">
               ${item.link ? `
-                <a href="${item.link}" class="btn btn-primary btn-sm" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;">
+                <a href="${item.link}" class="btn btn-primary btn-sm" style="font-size: 0.8rem; padding: 0.35rem 0.8rem;">
                   ${actionBtnText} &rarr;
                 </a>
               ` : ''}
 
               ${!item.read ? `
-                <button class="btn btn-outline btn-sm btn-mark-single-read" data-id="${item.id}" style="font-size: 0.78rem; padding: 0.35rem 0.65rem;">
+                <button class="btn btn-outline btn-sm btn-mark-single-read" data-id="${item.id}" style="font-size: 0.8rem; padding: 0.35rem 0.7rem;">
                   Mark as Read
                 </button>
               ` : `
-                <span class="text-xs text-dim">✓ Read</span>
+                <span class="text-xs text-dim font-bold">✓ Read</span>
               `}
             </div>
           </div>

@@ -1,7 +1,7 @@
 /**
- * RentEquip - Equipment Detail & Rental Calculator Controller (equipment.html)
- * Powers dynamic equipment loading, real-time date conflict verification,
- * live financial quote calculation, and simulated booking submission.
+ * RentEquip - Campus Equipment Detail & Quote Controller (equipment.html)
+ * Powers item details, condition badges, real-time date conflict verification,
+ * live student cost calculations in ₹, and simulated campus borrow checkout.
  */
 
 (function (window) {
@@ -31,7 +31,6 @@
       this.initCalculator();
       this.bindEvents();
 
-      // Listen for storage changes
       window.addEventListener('rentequip:change', () => {
         this.equipment = window.RentEquip.Storage.getEquipmentById(this.equipment.id);
         if (this.equipment) {
@@ -45,7 +44,7 @@
       const eq = this.equipment;
       const Calc = window.RentEquip.Calc;
 
-      document.title = `${eq.title} — RentEquip Rental`;
+      document.title = `${eq.title} — RentEquip Campus Gear`;
 
       // Breadcrumb & Header
       const breadcrumbCat = document.getElementById('breadcrumb-category');
@@ -53,10 +52,10 @@
       if (breadcrumbCat) breadcrumbCat.textContent = eq.category;
       if (breadcrumbTitle) breadcrumbTitle.textContent = eq.title;
 
-      // Media
+      // Media Visual
       const mediaContainer = document.getElementById('detail-media');
       if (mediaContainer) {
-        mediaContainer.innerHTML = `<img src="${eq.image}" alt="${eq.title}" style="width: 100%; height: 100%; object-fit: cover;">`;
+        mediaContainer.innerHTML = `<img src="${eq.image}" alt="${eq.title}" style="width: 100%; height: 100%; object-fit: contain;">`;
       }
 
       // Title & Status
@@ -70,19 +69,26 @@
       if (titleEl) titleEl.textContent = eq.title;
       if (statusBadge) statusBadge.innerHTML = window.RentEquip.UI.getStatusBadge(eq.status);
       if (locEl) locEl.textContent = eq.location;
-      if (ratingEl) ratingEl.innerHTML = `★ ${eq.rating.toFixed(1)} <span class="text-xs text-muted">(${eq.reviewCount || 0} reviews)</span>`;
+      if (ratingEl) ratingEl.innerHTML = `★ ${eq.rating.toFixed(1)} <span class="text-xs text-muted font-bold">(${eq.reviewCount || 0} student reviews)</span>`;
+
+      // Condition badge if available
+      const conditionBadgeEl = document.getElementById('detail-condition-badge');
+      if (conditionBadgeEl && eq.condition) {
+        conditionBadgeEl.style.display = 'inline-flex';
+        conditionBadgeEl.textContent = `Condition: ${eq.condition}`;
+      }
 
       // Description
       const descEl = document.getElementById('detail-description');
       if (descEl) descEl.textContent = eq.description;
 
-      // Operator license warning if required
+      // Operator/Lab Safety Notice
       const licenseNotice = document.getElementById('detail-license-notice');
       if (licenseNotice) {
         licenseNotice.style.display = eq.requiresOperatorLicense ? 'flex' : 'none';
       }
 
-      // Specs Table
+      // Specifications Table
       const specsTableBody = document.getElementById('detail-specs-body');
       if (specsTableBody) {
         specsTableBody.innerHTML = (eq.specs || []).map(s => `
@@ -93,7 +99,7 @@
         `).join('');
       }
 
-      // Features List
+      // Features / Included Items List
       const featuresList = document.getElementById('detail-features-list');
       if (featuresList) {
         featuresList.innerHTML = (eq.features || []).map(f => `
@@ -106,7 +112,7 @@
         `).join('');
       }
 
-      // Owner trust card
+      // Student Owner / Host Card
       const ownerName = document.getElementById('owner-name');
       const ownerCompany = document.getElementById('owner-company');
       const ownerRating = document.getElementById('owner-rating');
@@ -114,8 +120,8 @@
 
       const ownerObj = window.RentEquip.Storage.getUserById(eq.ownerId);
       if (ownerName) ownerName.textContent = eq.ownerName;
-      if (ownerCompany) ownerCompany.textContent = ownerObj ? ownerObj.company : 'Commercial Fleet Partner';
-      if (ownerRating) ownerRating.textContent = `★ ${eq.ownerRating || 4.9} Verified Equipment Host`;
+      if (ownerCompany) ownerCompany.textContent = ownerObj ? ownerObj.company : 'Verified Student Lender';
+      if (ownerRating) ownerRating.textContent = `★ ${eq.ownerRating || 4.9} Verified Peer Host • Fast Response`;
       if (ownerAvatar && ownerObj) ownerAvatar.textContent = ownerObj.avatar;
 
       // Reviews
@@ -138,29 +144,29 @@
 
       if (reviews.length === 0) {
         container.innerHTML = `
-          <div style="padding: 1.5rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); text-align: center;">
-            <p style="color: var(--color-text-muted); font-size: 0.9rem;">No reviews yet for this equipment. Reviews are submitted exclusively by verified customers after inspection completion.</p>
+          <div style="padding: 1.5rem; background: var(--color-surface-raised); border: 1.5px solid var(--color-border); border-radius: var(--radius-md); text-align: center;">
+            <p style="color: var(--color-text-muted); font-size: 0.9rem;">No peer reviews yet for this item. Reviews are submitted by verified students after inspecting and returning the item.</p>
           </div>
         `;
         return;
       }
 
       container.innerHTML = reviews.map(r => `
-        <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1rem;">
+        <div style="background: #ffffff; border: 1.5px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1rem; box-shadow: var(--shadow-sm);">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
             <div>
               <strong style="color: var(--color-text-main); font-size: 0.95rem;">${r.customerName}</strong>
-              <span class="badge badge-success" style="font-size: 0.68rem; margin-left: 0.5rem;">Verified Rental</span>
+              <span class="sticker-tag sticker-tag-green" style="font-size: 0.68rem; margin-left: 0.5rem;">Verified Student Renter</span>
             </div>
-            <div style="color: #fbbf24; font-weight: 700; font-size: 0.9rem;">
+            <div style="color: #f59e0b; font-weight: 800; font-size: 0.92rem;">
               ${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}
             </div>
           </div>
-          <p style="color: var(--color-text-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 0.5rem;">
+          <p style="color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.55; margin-bottom: 0.5rem;">
             "${r.comment}"
           </p>
-          <div style="font-size: 0.75rem; color: var(--color-text-dim);">
-            Rental completed on ${window.RentEquip.Calc.formatDate(r.date)}
+          <div style="font-size: 0.78rem; color: var(--color-text-dim); font-weight: 600;">
+            Borrowed on ${window.RentEquip.Calc.formatDate(r.date)}
           </div>
         </div>
       `).join('');
@@ -173,17 +179,13 @@
 
       if (!startInput || !endInput) return;
 
-      // Set min date to today
       const today = Calc.getTodayISO();
       startInput.min = today;
       endInput.min = today;
 
-      // Default start date = tomorrow, end date = tomorrow + 2 days
-      const defaultStart = Calc.addDays(today, 1);
-      const defaultEnd = Calc.addDays(today, 3);
-
-      startInput.value = defaultStart;
-      endInput.value = defaultEnd;
+      // Default start date = today (emergency borrow) or tomorrow
+      startInput.value = today;
+      endInput.value = Calc.addDays(today, 2);
 
       this.recalculate();
     },
@@ -237,12 +239,11 @@
       const endDate = endInput.value;
 
       if (!startDate || !endDate || endDate < startDate) {
-        this.renderBreakdownError('Please select valid start and end dates.');
+        this.renderBreakdownError('Please choose valid pickup and return dates.');
         if (bookBtn) bookBtn.disabled = true;
         return;
       }
 
-      // Check date availability conflict
       this.conflictCheck = window.RentEquip.Storage.isEquipmentAvailable(this.equipment.id, startDate, endDate);
 
       if (!this.conflictCheck.available) {
@@ -269,14 +270,13 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
             </svg>
             <div>
-              <strong>Dates Open &amp; Available!</strong> Ready for pickup on ${Calc.formatDate(startDate)}.
+              <strong>Available for Pickup!</strong> Ready on ${Calc.formatDate(startDate)} at ${this.equipment.location}.
             </div>
           `;
         }
         if (bookBtn) bookBtn.disabled = false;
       }
 
-      // Calculate quote
       this.quote = Calc.calculateQuote(this.equipment.dailyRate, this.equipment.securityDeposit, startDate, endDate);
       this.renderBreakdown(this.quote);
     },
@@ -289,7 +289,7 @@
       const depositEl = document.getElementById('calc-val-deposit');
       const totalEl = document.getElementById('calc-val-total');
 
-      if (daysEl) daysEl.textContent = `${q.days} ${q.days === 1 ? 'Day' : 'Days'}`;
+      if (daysEl) daysEl.textContent = `${q.days} ${q.days === 1 ? 'Day (Exam/Class Borrow)' : 'Days'}`;
       if (feeEl) feeEl.textContent = Calc.formatCurrency(q.rentalFee);
       if (serviceEl) serviceEl.textContent = Calc.formatCurrency(q.serviceFee);
       if (depositEl) depositEl.textContent = Calc.formatCurrency(q.securityDeposit);
@@ -314,47 +314,46 @@
       const modalSummary = document.getElementById('checkout-rental-summary');
       if (modalSummary) {
         modalSummary.innerHTML = `
-          <div style="background: var(--color-surface-raised); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.25rem;">
+          <div style="background: var(--color-surface-raised); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.25rem; border: 1.5px solid var(--color-border);">
             <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem;">
-              <div style="width: 50px; height: 50px; border-radius: var(--radius-sm); overflow: hidden; background: #0b0f17;">
-                <img src="${this.equipment.image}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+              <div style="width: 50px; height: 50px; border-radius: var(--radius-sm); overflow: hidden; background: #ffffff; border: 1px solid var(--color-border); padding: 2px;">
+                <img src="${this.equipment.image}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
               </div>
               <div>
                 <strong style="color: var(--color-text-main); font-size: 0.95rem;">${this.equipment.title}</strong>
-                <div style="font-size: 0.78rem; color: var(--color-text-muted);">Depot: ${this.equipment.location}</div>
+                <div style="font-size: 0.8rem; color: var(--color-text-muted);">Pickup: ${this.equipment.location}</div>
               </div>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.85rem; border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
               <div><strong>Pickup:</strong> ${Calc.formatDate(document.getElementById('calc-start-date').value)}</div>
               <div><strong>Return:</strong> ${Calc.formatDate(document.getElementById('calc-end-date').value)}</div>
-              <div><strong>Duration:</strong> ${this.quote.days} rental days</div>
-              <div><strong>Daily Rate:</strong> ${Calc.formatCurrency(this.equipment.dailyRate)}/day</div>
+              <div><strong>Duration:</strong> ${this.quote.days} days</div>
+              <div><strong>Rate:</strong> ${Calc.formatCurrency(this.equipment.dailyRate)}/day</div>
             </div>
           </div>
 
-          <div style="background: #0b0f17; border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.25rem;">
+          <div style="background: #ffffff; border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.25rem;">
             <div class="calc-breakdown-row">
               <span>Rental Fee (${this.quote.days} days):</span>
               <strong>${Calc.formatCurrency(this.quote.rentalFee)}</strong>
             </div>
             <div class="calc-breakdown-row">
-              <span>Damage Protection &amp; Service Fee (6%):</span>
+              <span>Student Platform Maintenance (5%):</span>
               <strong>${Calc.formatCurrency(this.quote.serviceFee)}</strong>
             </div>
             <div class="calc-breakdown-row">
-              <span style="color: #34d399;">Refundable Security Deposit:</span>
-              <strong style="color: #34d399;">${Calc.formatCurrency(this.quote.securityDeposit)}</strong>
+              <span style="color: var(--color-success);">Refundable Security Deposit:</span>
+              <strong style="color: var(--color-success);">${Calc.formatCurrency(this.quote.securityDeposit)}</strong>
             </div>
             <div class="calc-breakdown-row total-row">
-              <span>Total Upfront Charge (Simulated):</span>
+              <span>Total Upfront Amount (Simulated):</span>
               <span class="calc-val">${Calc.formatCurrency(this.quote.totalUpfront)}</span>
             </div>
           </div>
         `;
       }
 
-      // Populate user info
       const customerNameInput = document.getElementById('checkout-customer-name');
       const customerEmailInput = document.getElementById('checkout-customer-email');
       if (customerNameInput) customerNameInput.value = user.name;
@@ -370,12 +369,11 @@
       const methodSelect = document.getElementById('checkout-payment-method');
       const notesInput = document.getElementById('checkout-notes');
 
-      const paymentMethod = methodSelect ? methodSelect.value : 'Simulated Visa •••• 4242';
+      const paymentMethod = methodSelect ? methodSelect.value : 'Simulated UPI • GPay';
 
-      // Perform one final conflict check to prevent race conditions
       const freshConflictCheck = window.RentEquip.Storage.isEquipmentAvailable(this.equipment.id, startDate, endDate);
       if (!freshConflictCheck.available) {
-        window.RentEquip.UI.showToast(`Booking Conflict: ${freshConflictCheck.reason}`, 'error');
+        window.RentEquip.UI.showToast(`Borrow Conflict: ${freshConflictCheck.reason}`, 'error');
         window.RentEquip.UI.closeModal('checkout-modal');
         this.recalculate();
         return;
@@ -407,7 +405,7 @@
       const newBooking = window.RentEquip.Storage.createBooking(bookingData);
 
       window.RentEquip.UI.closeModal('checkout-modal');
-      window.RentEquip.UI.showToast(`Rental request #${newBooking.id} created! Redirecting to Customer Portal...`, 'success', 3000);
+      window.RentEquip.UI.showToast(`🎉 Borrow request #${newBooking.id} submitted! Awaiting ${this.equipment.ownerName}'s approval...`, 'success', 3000);
 
       setTimeout(() => {
         window.location.href = 'customer.html';

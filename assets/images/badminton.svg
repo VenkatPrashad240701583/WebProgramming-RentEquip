@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="racketGrip" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" rx="16" fill="#f0fdf4"/>
+
+  <!-- Badminton Racket 1 (Slanted) -->
+  <g transform="translate(160, 60) rotate(-25)">
+    <!-- Oval Head Rim -->
+    <ellipse cx="60" cy="80" rx="50" ry="70" fill="none" stroke="#2563eb" stroke-width="6"/>
+    <!-- String Mesh -->
+    <ellipse cx="60" cy="80" rx="46" ry="66" fill="rgba(255,255,255,0.7)"/>
+    <path d="M30 40 V120 M45 25 V135 M60 15 V145 M75 25 V135 M90 40 V120" stroke="#93c5fd" stroke-width="1.5"/>
+    <path d="M20 50 H100 M15 70 H105 M15 90 H105 M20 110 H100" stroke="#93c5fd" stroke-width="1.5"/>
+
+    <!-- T-Joint Throat -->
+    <polygon points="54,148 66,148 62,170 58,170" fill="#1e293b"/>
+
+    <!-- Graphite Shaft -->
+    <rect x="58" y="170" width="4" height="110" fill="#0f172a"/>
+
+    <!-- Cushion Grip Handle -->
+    <rect x="54" y="270" width="12" height="70" rx="3" fill="url(#racketGrip)" stroke="#b45309" stroke-width="1"/>
+    <!-- Grip tape spiral lines -->
+    <line x1="54" y1="285" x2="66" y2="295" stroke="#78350f" stroke-width="1.5"/>
+    <line x1="54" y1="305" x2="66" y2="315" stroke="#78350f" stroke-width="1.5"/>
+    <line x1="54" y1="325" x2="66" y2="335" stroke="#78350f" stroke-width="1.5"/>
+    <!-- End cap -->
+    <rect x="52" y="340" width="16" height="5" rx="1" fill="#1e293b"/>
+  </g>
+
+  <!-- Cork Shuttlecock with White Feathers -->
+  <g transform="translate(360, 180) rotate(25)">
+    <!-- Round Cork Base -->
+    <circle cx="30" cy="65" r="14" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <path d="M16 65 H44" stroke="#dc2626" stroke-width="2"/>
+
+    <!-- Feathers Flare -->
+    <polygon points="18,60 5,0 55,0 42,60" fill="rgba(255,255,255,0.95)" stroke="#cbd5e1" stroke-width="1.5"/>
+    <line x1="12" y1="20" x2="48" y2="20" stroke="#0284c7" stroke-width="1.5"/>
+    <line x1="10" y1="35" x2="50" y2="35" stroke="#0284c7" stroke-width="1.5"/>
+    <!-- Feather ribs -->
+    <line x1="18" y1="60" x2="10" y2="0" stroke="#94a3b8" stroke-width="1"/>
+    <line x1="25" y1="60" x2="22" y2="0" stroke="#94a3b8" stroke-width="1"/>
+    <line x1="35" y1="60" x2="38" y2="0" stroke="#94a3b8" stroke-width="1"/>
+    <line x1="42" y1="60" x2="50" y2="0" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <text x="48" y="44" fill="#166534" font-size="16" font-family="system-ui, sans-serif" font-weight="800">CAMPUS SPORTS RECREATION</text>
+  <text x="340" y="44" fill="#15803d" font-size="12" font-family="system-ui, sans-serif">Yonex Badminton Pair + Feather Shuttles</text>
+</svg>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="RentEquip - Equipment Owner Portal: manage machinery inventory, approve rental requests, perform return condition inspections, and settle security deposits.">
-  <title>Equipment Owner Portal — RentEquip</title>
+  <meta name="description" content="RentEquip - Student Lender & Club Host Portal: manage listed academic supplies, approve borrow requests, check returned items, and refund deposits.">
+  <title>Student Lender &amp; Club Portal — RentEquip</title>
   
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="css/base.css">
@@ -18,21 +18,20 @@
     <header class="main-header" id="main-header"></header>
 
     <main class="main-content" id="main-content">
-      <!-- Owner Perspective Banner -->
+      <!-- Lender Perspective Banner -->
       <section class="dashboard-header-banner">
         <div class="container">
-          <!-- Role switch banner if not owner -->
-          <div id="owner-role-warning-banner" style="display: none; background: rgba(2, 132, 199, 0.12); border: 1px solid rgba(2, 132, 199, 0.35); padding: 0.85rem 1.25rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 0.88rem; color: #38bdf8;"></div>
+          <div id="owner-role-warning-banner" style="display: none; background: #e0f2fe; border: 1.5px solid #7dd3fc; padding: 0.85rem 1.25rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 0.9rem; color: #0369a1;"></div>
 
           <div class="dashboard-header-flex">
             <div class="dashboard-user-profile">
-              <div class="user-avatar-large" id="owner-user-avatar">MV</div>
+              <div class="user-avatar-large" id="owner-user-avatar">PP</div>
               <div>
-                <h1 class="dashboard-title" id="owner-user-name">Marcus Vance</h1>
+                <h1 class="dashboard-title" id="owner-user-name">Priya Patel</h1>
                 <div class="dashboard-subtitle">
-                  <span id="owner-user-company">Vance Earthworks &amp; Machinery</span>
+                  <span id="owner-user-company">Final Year Mech • Robotics Club Lead • Saraswati Hostel</span>
                   <span>•</span>
-                  <span class="badge badge-owner">Fleet Owner Perspective</span>
+                  <span class="badge badge-owner">Student Lender Desk</span>
                 </div>
               </div>
             </div>
@@ -42,7 +41,7 @@
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
                 </svg>
-                Add Fleet Equipment
+                List New Supply / Gear
               </button>
             </div>
           </div>
@@ -54,65 +53,65 @@
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-card-header">
-              <span class="stat-label">Fleet Units</span>
-              <div class="stat-icon" style="background: rgba(2, 132, 199, 0.15); color: #38bdf8;">
+              <span class="stat-label">Supplies Listed</span>
+              <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                 </svg>
               </div>
             </div>
             <div class="stat-value" id="kpi-owner-units">0</div>
-            <div class="stat-subtext">Active equipment in catalog</div>
+            <div class="stat-subtext">Active items in campus catalog</div>
           </div>
 
           <div class="stat-card">
             <div class="stat-card-header">
-              <span class="stat-label">Active on Site</span>
-              <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">
+              <span class="stat-label">Out with Students</span>
+              <div class="stat-icon" style="background: #dcfce7; color: #15803d;">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
               </div>
             </div>
             <div class="stat-value" id="kpi-owner-active">0</div>
-            <div class="stat-subtext">Currently rented &amp; earning</div>
+            <div class="stat-subtext">Currently borrowed on campus</div>
           </div>
 
           <div class="stat-card">
             <div class="stat-card-header">
-              <span class="stat-label">Pending Approval</span>
-              <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">
+              <span class="stat-label">Pending Requests</span>
+              <div class="stat-icon" style="background: #fef3c7; color: #b45309;">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
               </div>
             </div>
             <div class="stat-value" id="kpi-owner-pending">0</div>
-            <div class="stat-subtext">Requests needing host response</div>
+            <div class="stat-subtext">Requests needing your approval</div>
           </div>
 
           <div class="stat-card">
             <div class="stat-card-header">
-              <span class="stat-label">Gross Revenue</span>
-              <div class="stat-icon" style="background: rgba(139, 92, 246, 0.15); color: #c084fc;">
+              <span class="stat-label">Borrow Earnings</span>
+              <div class="stat-icon" style="background: #ede9fe; color: #6d28d9;">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
               </div>
             </div>
-            <div class="stat-value" id="kpi-owner-earnings">$0.00</div>
-            <div class="stat-subtext">Total fleet rental earnings</div>
+            <div class="stat-value" id="kpi-owner-earnings">₹0</div>
+            <div class="stat-subtext">Rental fees received from peers</div>
           </div>
         </div>
 
-        <!-- Main Owner Content Card -->
+        <!-- Main Lender Content Card -->
         <div class="card" style="margin-bottom: 3.5rem;">
           <div class="card-header">
             <div class="tab-group" id="owner-tabs" style="margin-bottom: 0; border-bottom: none;">
-              <button class="tab-btn active" data-tab="inventory">Fleet Inventory (CRUD)</button>
-              <button class="tab-btn" data-tab="bookings">Rental Booking Requests</button>
+              <button class="tab-btn active" data-tab="inventory">Listed Supplies (CRUD)</button>
+              <button class="tab-btn" data-tab="bookings">Borrow Requests</button>
               <button class="tab-btn" data-tab="inspections">
-                Returns &amp; Inspections 
+                Returns &amp; Deposit Checks 
                 <span class="nav-badge" id="tab-inspection-badge" style="display: none; margin-left: 0.35rem;">0</span>
               </button>
             </div>
@@ -125,9 +124,9 @@
                 <table class="data-table">
                   <thead>
                     <tr>
-                      <th>Equipment Unit</th>
-                      <th>Rates &amp; Deposit</th>
-                      <th>Customer Rating</th>
+                      <th>Supply Item</th>
+                      <th>Rental Rate &amp; Deposit</th>
+                      <th>Peer Rating</th>
                       <th>Status</th>
                       <th>Actions</th>
                     </tr>
@@ -145,9 +144,9 @@
                 <table class="data-table">
                   <thead>
                     <tr>
-                      <th>Equipment Unit</th>
-                      <th>Renter Contact</th>
-                      <th>Rental Period</th>
+                      <th>Requested Item</th>
+                      <th>Student Renter</th>
+                      <th>Borrow Period</th>
                       <th>Status</th>
                       <th>Host Actions</th>
                     </tr>
@@ -165,10 +164,10 @@
                 <table class="data-table">
                   <thead>
                     <tr>
-                      <th>Equipment Unit</th>
+                      <th>Returned Supply</th>
                       <th>Handover Date</th>
                       <th>Security Deposit</th>
-                      <th>Inspection Status</th>
+                      <th>Return Status</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -181,8 +180,8 @@
                   <svg class="empty-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
-                  <h3 class="empty-title">All Returns Inspected</h3>
-                  <p class="empty-desc">No equipment currently awaiting return inspection. When a customer returns equipment, it will appear here for damage assessment and deposit refund settlement.</p>
+                  <h3 class="empty-title">All Returns Checked</h3>
+                  <p class="empty-desc">No items currently waiting for return check. When a student hands back an item, it will show up here to inspect condition and release deposit refund.</p>
                 </div>
               </div>
             </div>
@@ -195,88 +194,98 @@
     <footer class="main-footer" id="main-footer"></footer>
   </div>
 
-  <!-- Equipment CRUD Modal (Add / Edit) -->
+  <!-- Item CRUD Modal (Add / Edit) -->
   <div class="modal" id="equipment-modal" aria-hidden="true" role="dialog" aria-labelledby="equipment-modal-title">
     <div class="modal-backdrop"></div>
     <div class="modal-dialog modal-dialog-lg">
       <div class="modal-header">
-        <h3 class="modal-title" id="equipment-modal-title">Add Equipment</h3>
+        <h3 class="modal-title" id="equipment-modal-title">List Campus Supply</h3>
         <button class="modal-close" onclick="RentEquip.UI.closeModal('equipment-modal')" aria-label="Close modal">&times;</button>
       </div>
       <form id="equipment-form">
         <div class="modal-body">
           <div class="form-group">
-            <label class="form-label" for="eq-field-title">Equipment Model / Name <span class="required">*</span></label>
-            <input type="text" id="eq-field-title" class="form-control" required placeholder="e.g. CAT 308 CR Mini Hydraulic Excavator">
+            <label class="form-label" for="eq-field-title">Item Name <span class="required">*</span></label>
+            <input type="text" id="eq-field-title" class="form-control" required placeholder="e.g. Casio fx-991EX Calculator, Mini-Drafter, Lab Coat...">
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
             <div class="form-group">
               <label class="form-label" for="eq-field-category">Category <span class="required">*</span></label>
               <select id="eq-field-category" class="form-select">
-                <option value="Earthmoving">Earthmoving &amp; Excavation</option>
-                <option value="Aerial & Lifts">Aerial &amp; Lifts</option>
-                <option value="Power & Lighting">Power &amp; Lighting</option>
-                <option value="Concrete & Masonry">Concrete &amp; Masonry</option>
-                <option value="Compaction & Paving">Compaction &amp; Paving</option>
-                <option value="Landscaping">Landscaping &amp; Forestry</option>
-                <option value="Power Tools">Hand &amp; Power Tools</option>
-                <option value="Cleaning & Prep">Cleaning &amp; Prep</option>
+                <option value="Stationery">Stationery &amp; Writing</option>
+                <option value="Engineering Drawing">Engineering Drawing</option>
+                <option value="Lab Essentials">Lab Essentials &amp; Electronics</option>
+                <option value="Academic Resources">Academic Resources</option>
+                <option value="Electronics & Computing">Electronics &amp; Computing</option>
+                <option value="Art & Design">Fine Arts &amp; Design</option>
+                <option value="Projects & Presentations">Projects &amp; Presentations</option>
+                <option value="Sports & Recreation">Sports &amp; Recreation</option>
+                <option value="Campus Events">Campus Events &amp; Culturals</option>
+                <option value="Everyday Essentials">Everyday Student Essentials</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="eq-field-location">Depot Location <span class="required">*</span></label>
-              <input type="text" id="eq-field-location" class="form-control" required value="Austin North Depot, Austin TX">
+              <label class="form-label" for="eq-field-location">Pickup Point <span class="required">*</span></label>
+              <input type="text" id="eq-field-location" class="form-control" required value="Kaveri Boys Hostel - Common Room">
             </div>
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
             <div class="form-group">
-              <label class="form-label" for="eq-field-daily-rate">Daily Rate ($) <span class="required">*</span></label>
-              <input type="number" id="eq-field-daily-rate" class="form-control" min="10" step="5" required>
+              <label class="form-label" for="eq-field-daily-rate">Daily Rate (₹) <span class="required">*</span></label>
+              <input type="number" id="eq-field-daily-rate" class="form-control" min="1" step="1" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="eq-field-weekly-rate">Weekly Rate ($)</label>
-              <input type="number" id="eq-field-weekly-rate" class="form-control" min="50" step="10">
+              <label class="form-label" for="eq-field-weekly-rate">Weekly Pass (₹)</label>
+              <input type="number" id="eq-field-weekly-rate" class="form-control" min="5" step="5">
             </div>
             <div class="form-group">
-              <label class="form-label" for="eq-field-deposit">Security Deposit ($) <span class="required">*</span></label>
-              <input type="number" id="eq-field-deposit" class="form-control" min="50" step="25" required>
+              <label class="form-label" for="eq-field-deposit">Security Deposit (₹) <span class="required">*</span></label>
+              <input type="number" id="eq-field-deposit" class="form-control" min="10" step="5" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="eq-field-image">Illustration / Vector Graphic <span class="required">*</span></label>
+            <label class="form-label" for="eq-field-image">Campus Graphic Icon <span class="required">*</span></label>
             <select id="eq-field-image" class="form-select">
-              <option value="assets/images/excavator.svg">CAT Mini Excavator Graphic</option>
-              <option value="assets/images/scissor-lift.svg">Genie Scissor Lift Graphic</option>
-              <option value="assets/images/skid-steer.svg">Bobcat Skid Steer Graphic</option>
-              <option value="assets/images/generator.svg">Generac Diesel Generator Graphic</option>
-              <option value="assets/images/concrete-mixer.svg">Multiquip Concrete Mixer Graphic</option>
-              <option value="assets/images/compactor.svg">Forward Plate Compactor Graphic</option>
-              <option value="assets/images/telehandler.svg">JLG Telehandler Graphic</option>
-              <option value="assets/images/pressure-washer.svg">Commercial Pressure Washer Graphic</option>
-              <option value="assets/images/rotary-hammer.svg">Demolition Hammer Graphic</option>
-              <option value="assets/images/trencher.svg">Tracked Trencher Graphic</option>
-              <option value="assets/images/light-tower.svg">LED Mobile Light Tower Graphic</option>
-              <option value="assets/images/wood-chipper.svg">Commercial Wood Chipper Graphic</option>
+              <option value="assets/images/stationery.svg">Stationery &amp; Pens Icon</option>
+              <option value="assets/images/geometry-box.svg">Geometry Box Icon</option>
+              <option value="assets/images/drawing-board.svg">Drawing Board Icon</option>
+              <option value="assets/images/drafter.svg">Mini-Drafter Icon</option>
+              <option value="assets/images/lab-coat.svg">Lab Coat &amp; Goggles Icon</option>
+              <option value="assets/images/multimeter.svg">Digital Multimeter Icon</option>
+              <option value="assets/images/arduino.svg">Arduino / Dev Board Icon</option>
+              <option value="assets/images/soldering-kit.svg">Soldering Station Icon</option>
+              <option value="assets/images/calculator.svg">Scientific Calculator Icon</option>
+              <option value="assets/images/textbook.svg">Academic Textbooks Icon</option>
+              <option value="assets/images/laptop.svg">Coding Laptop Icon</option>
+              <option value="assets/images/projector.svg">Projector Icon</option>
+              <option value="assets/images/art-kit.svg">Fine Arts Painting Kit Icon</option>
+              <option value="assets/images/sketchbook.svg">Sketchbook &amp; Markers Icon</option>
+              <option value="assets/images/badminton.svg">Badminton Sports Icon</option>
+              <option value="assets/images/cricket-kit.svg">Cricket Gear Icon</option>
+              <option value="assets/images/umbrella.svg">Umbrella Icon</option>
+              <option value="assets/images/power-bank.svg">Power Bank Icon</option>
+              <option value="assets/images/extension-cord.svg">Extension Board Icon</option>
+              <option value="assets/images/cycle-lock.svg">Bicycle Lock Icon</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="eq-field-description">Description &amp; Jobsite Uses <span class="required">*</span></label>
-            <textarea id="eq-field-description" class="form-textarea" required placeholder="Detailed specifications, maintenance history, engine horsepower, operating weight..."></textarea>
+            <label class="form-label" for="eq-field-description">Description &amp; Condition Details <span class="required">*</span></label>
+            <textarea id="eq-field-description" class="form-textarea" required placeholder="Describe condition, battery status, included accessories, or exam tips..."></textarea>
           </div>
 
           <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
             <label class="filter-checkbox-label">
               <input type="checkbox" id="eq-field-license" class="filter-checkbox">
-              <span>Requires Heavy Machinery Operator License</span>
+              <span>Includes Special Lab Safety Instructions</span>
             </label>
             <label class="filter-checkbox-label">
               <input type="checkbox" id="eq-field-featured" class="filter-checkbox">
-              <span>Promote as Featured Equipment</span>
+              <span>Promote as Featured Campus Pick</span>
             </label>
           </div>
         </div>
@@ -294,7 +303,7 @@
     <div class="modal-backdrop"></div>
     <div class="modal-dialog">
       <div class="modal-header">
-        <h3 class="modal-title" id="reject-modal-title">Decline Rental Request</h3>
+        <h3 class="modal-title" id="reject-modal-title">Decline Borrow Request</h3>
         <button class="modal-close" onclick="RentEquip.UI.closeModal('reject-modal')" aria-label="Close modal">&times;</button>
       </div>
       <form id="reject-form">
@@ -302,12 +311,12 @@
           <div class="form-group">
             <label class="form-label" for="reject-reason-input">Reason for Declining <span class="required">*</span></label>
             <select id="reject-reason-input" class="form-select">
-              <option value="Equipment scheduled for preventative maintenance">Equipment scheduled for preventative maintenance</option>
-              <option value="Depot closed for scheduled holiday / yard reorganization">Depot closed for scheduled holiday</option>
-              <option value="Commercial fleet reservation conflict on jobsite">Commercial fleet reservation conflict</option>
-              <option value="Special operator certification required for requested equipment">Operator certification required</option>
+              <option value="Item in personal use for today's exam or class">Item in personal use for today's exam or class</option>
+              <option value="Hostel block out of station for the weekend">Out of campus for the weekend</option>
+              <option value="Item under repair / missing component">Item under check / missing accessory</option>
+              <option value="Schedule clash with lab timing">Schedule clash with practical timing</option>
             </select>
-            <div class="form-hint">The customer will receive an immediate notification and full simulated refund.</div>
+            <div class="form-hint">The student will receive an immediate alert and full simulated refund.</div>
           </div>
         </div>
         <div class="modal-footer">
@@ -323,58 +332,58 @@
     <div class="modal-backdrop"></div>
     <div class="modal-dialog modal-dialog-lg">
       <div class="modal-header">
-        <h3 class="modal-title" id="inspection-modal-title">Equipment Return Inspection</h3>
+        <h3 class="modal-title" id="inspection-modal-title">Return Condition Check</h3>
         <button class="modal-close" onclick="RentEquip.UI.closeModal('inspection-modal')" aria-label="Close modal">&times;</button>
       </div>
       <form id="inspection-form">
         <input type="hidden" id="inspect-condition-val" value="pristine">
 
         <div class="modal-body">
-          <!-- Dates & Overdue Status -->
+          <!-- Summary card -->
           <div class="inspection-summary-card" id="inspection-unit-summary"></div>
 
-          <!-- Machinery Condition Selector -->
+          <!-- Condition selector -->
           <div class="form-group">
-            <label class="form-label">Machinery Condition &amp; Cleanliness Assessment</label>
+            <label class="form-label">Item Return Condition</label>
             <div class="condition-selector-grid">
               <button type="button" class="condition-btn active" data-condition="pristine">
                 ✨ Pristine / Clean
               </button>
               <button type="button" class="condition-btn" data-condition="minor_wear">
-                🔧 Normal Site Wear
+                🔧 Minor Wear
               </button>
               <button type="button" class="condition-btn" data-condition="damaged">
-                ⚠️ Damage / Missing Parts
+                ⚠️ Missing Accessory
               </button>
               <button type="button" class="condition-btn" data-condition="heavy_damage">
-                🚨 Severe Damage / Abuse
+                🚨 Heavy Damage
               </button>
             </div>
           </div>
 
-          <!-- Damage Fee Input -->
+          <!-- Damage Fee Input in Rupees -->
           <div class="form-group">
-            <label class="form-label" for="inspect-damage-fee">Damage Deductions ($)</label>
-            <input type="number" id="inspect-damage-fee" class="form-control" min="0" step="10" value="0">
-            <div class="form-hint">Deducted directly from the customer's refundable security deposit.</div>
+            <label class="form-label" for="inspect-damage-fee">Damage / Missing Part Deduction (₹)</label>
+            <input type="number" id="inspect-damage-fee" class="form-control" min="0" step="5" value="0">
+            <div class="form-hint">Deducted directly from the student's refundable escrow deposit.</div>
           </div>
 
-          <!-- Real-Time Settlement Calculation Box -->
+          <!-- Real-Time Settlement Preview -->
           <div class="settlement-preview-box" id="settlement-preview-box">
             <!-- Dynamically calculated -->
           </div>
 
-          <!-- Inspector Notes -->
+          <!-- Handover notes -->
           <div class="form-group">
-            <label class="form-label" for="inspect-notes">Inspection Report &amp; Handover Notes <span class="required">*</span></label>
-            <textarea id="inspect-notes" class="form-textarea" required placeholder="Describe condition of tracks/tires, hydraulic lines, engine hour reading, and refueled tank level..."></textarea>
+            <label class="form-label" for="inspect-notes">Inspection Notes <span class="required">*</span></label>
+            <textarea id="inspect-notes" class="form-textarea" required placeholder="Condition of item, cables, battery charge, completeness..."></textarea>
           </div>
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" onclick="RentEquip.UI.closeModal('inspection-modal')">Cancel</button>
           <button type="submit" class="btn btn-primary">
-            Finalize Inspection &amp; Settle Deposit Refund
+            Finalize Check &amp; Release Deposit Refund
           </button>
         </div>
       </form>
