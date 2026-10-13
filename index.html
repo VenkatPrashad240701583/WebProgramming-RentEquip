@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RentEquip - Modern commercial equipment rental marketplace. Rent excavators, aerial lifts, generators, and compaction machinery with instant availability.">
+  <title>RentEquip — Heavy Equipment &amp; Machinery Rental Marketplace</title>
+  
+  <!-- CSS Stylesheets (Relative Paths for GitHub Pages) -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div class="site-wrapper">
+    <!-- Shared Top Navigation Header -->
+    <header class="main-header" id="main-header"></header>
+
+    <main class="main-content" id="main-content">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="container">
+          <div class="hero-tagline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            Commercial Fleet On-Demand
+          </div>
+          <h1 class="hero-title">
+            Rent Heavy Machinery &amp; Tools <br><span>Zero Friction, Instant Depot Pickup</span>
+          </h1>
+          <p class="hero-subtitle">
+            Hydraulic excavators, boom lifts, compaction plates, and silent diesel generators. Transparent refundable deposits, validated availability, and zero paper contracts.
+          </p>
+
+          <!-- Search Widget -->
+          <div class="search-widget-card">
+            <form class="search-widget-form" id="search-form" role="search" aria-label="Search equipment catalog">
+              <div class="search-field">
+                <svg class="search-field-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input type="text" id="search-input" class="search-input" placeholder="Search equipment model, brand, or specs (e.g. CAT 308, Lift)..." aria-label="Search equipment keywords">
+              </div>
+
+              <div class="search-field">
+                <select id="search-category-select" class="search-select" aria-label="Select equipment category">
+                  <option value="all">All Fleet Categories</option>
+                  <option value="Earthmoving">Earthmoving &amp; Excavation</option>
+                  <option value="Aerial & Lifts">Aerial Work Platforms</option>
+                  <option value="Power & Lighting">Power &amp; Lighting</option>
+                  <option value="Concrete & Masonry">Concrete &amp; Masonry</option>
+                  <option value="Compaction & Paving">Compaction &amp; Paving</option>
+                  <option value="Landscaping">Landscaping &amp; Forestry</option>
+                  <option value="Power Tools">Hand &amp; Power Tools</option>
+                  <option value="Cleaning & Prep">Cleaning &amp; Prep</option>
+                </select>
+              </div>
+
+              <div class="search-field">
+                <select id="search-location-select" class="search-select" aria-label="Select depot yard">
+                  <option value="all">All Depot Locations</option>
+                  <option value="Austin North Depot">Austin North Depot</option>
+                  <option value="Downtown Logistics Hub">Downtown Logistics Hub</option>
+                  <option value="South Congress Yard">South Congress Yard</option>
+                  <option value="East Riverside Yard">East Riverside Yard</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-primary search-btn">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                Find Fleet
+              </button>
+            </form>
+          </div>
+
+          <!-- Quick Category Filter Chips -->
+          <div class="category-chips-bar" id="category-chips">
+            <button type="button" class="category-chip active" data-category="all">All Fleet</button>
+            <button type="button" class="category-chip" data-category="Earthmoving">Earthmoving</button>
+            <button type="button" class="category-chip" data-category="Aerial & Lifts">Aerial &amp; Lifts</button>
+            <button type="button" class="category-chip" data-category="Power & Lighting">Power &amp; Lighting</button>
+            <button type="button" class="category-chip" data-category="Concrete & Masonry">Concrete &amp; Masonry</button>
+            <button type="button" class="category-chip" data-category="Compaction & Paving">Compaction</button>
+            <button type="button" class="category-chip" data-category="Landscaping">Landscaping</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Marketplace Catalog Section -->
+      <section class="container">
+        <div class="marketplace-layout">
+          <!-- Sidebar Filters -->
+          <aside class="filter-sidebar" aria-label="Catalog Filters">
+            <div class="filter-section">
+              <div class="filter-title">
+                <span>Filter Fleet</span>
+                <button type="button" class="btn btn-outline btn-sm" id="btn-reset-filters" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;">Reset</button>
+              </div>
+            </div>
+
+            <!-- Category Checklist -->
+            <div class="filter-section">
+              <h3 class="filter-title">Category</h3>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Earthmoving" checked>
+                <span>Earthmoving</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Aerial & Lifts" checked>
+                <span>Aerial &amp; Lifts</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Power & Lighting" checked>
+                <span>Power &amp; Lighting</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Concrete & Masonry" checked>
+                <span>Concrete &amp; Masonry</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Compaction & Paving" checked>
+                <span>Compaction &amp; Paving</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Landscaping" checked>
+                <span>Landscaping &amp; Forestry</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Power Tools" checked>
+                <span>Power Tools</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" class="filter-checkbox filter-category-checkbox" value="Cleaning & Prep" checked>
+                <span>Cleaning &amp; Prep</span>
+              </label>
+            </div>
+
+            <!-- Price Range Filter -->
+            <div class="filter-section">
+              <h3 class="filter-title">Daily Rate Cap</h3>
+              <div class="price-slider-group">
+                <div class="flex justify-between text-sm">
+                  <span>Up to:</span>
+                  <strong id="price-display" style="color: var(--color-primary); font-size: 1rem;">$500</strong>
+                </div>
+                <input type="range" id="price-slider" min="50" max="500" step="25" value="500" class="w-full" style="accent-color: var(--color-primary); cursor: pointer;" aria-label="Max daily rate">
+                <div class="flex justify-between text-xs text-dim">
+                  <span>$50/day</span>
+                  <span>$500/day</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Availability & Featured Toggles -->
+            <div class="filter-section">
+              <h3 class="filter-title">Availability</h3>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" id="filter-available-only" class="filter-checkbox">
+                <span>Available Now Only</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <input type="checkbox" id="filter-featured-only" class="filter-checkbox">
+                <span>Featured Equipment Only</span>
+              </label>
+            </div>
+
+            <!-- Trust badges in sidebar -->
+            <div style="background: var(--color-surface-raised); border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.78rem; color: var(--color-text-muted);">
+              <p style="margin-bottom: 0.4rem;"><strong style="color: var(--color-text-main);">🛡️ Fully Inspected Fleet</strong></p>
+              <p>Every piece is condition-checked, load-tested, and pre-fueled before customer pickup.</p>
+            </div>
+          </aside>
+
+          <!-- Main Equipment Grid -->
+          <section class="listings-main-area" aria-label="Equipment Listings">
+            <div class="listings-header">
+              <div class="listings-count">
+                Available Equipment (<span id="listings-count-num">12</span>)
+              </div>
+              <div class="listings-controls">
+                <label for="sort-select" class="text-sm text-muted">Sort by:</label>
+                <select id="sort-select" class="sort-select" aria-label="Sort equipment">
+                  <option value="featured">Featured First</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="rating-desc">Highest Customer Rating</option>
+                  <option value="title-asc">Model Name (A-Z)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Active Filter Badges -->
+            <div class="active-filters-row" id="active-filters-badges" style="display: none;"></div>
+
+            <!-- Cards Container -->
+            <div class="equipment-grid" id="equipment-grid">
+              <!-- Dynamically rendered by js/marketplace.js -->
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <!-- Shared Footer -->
+    <footer class="main-footer" id="main-footer"></footer>
+  </div>
+
+  <!-- Quick View Modal -->
+  <div class="modal" id="quick-view-modal" aria-hidden="true" role="dialog" aria-labelledby="quick-view-modal-title">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog modal-dialog-lg">
+      <div class="modal-header">
+        <h3 class="modal-title" id="quick-view-modal-title">Equipment Quick View</h3>
+        <button class="modal-close" onclick="RentEquip.UI.closeModal('quick-view-modal')" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body" id="quick-view-modal-body">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="RentEquip.UI.closeModal('quick-view-modal')">Close</button>
+        <a href="#" id="quick-view-action-btn" class="btn btn-primary">
+          View Full Specs &amp; Calculator &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core Scripts -->
+  <script src="js/calc.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/marketplace.js"></script>
+</body>
+</html>

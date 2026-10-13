@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RentEquip - Equipment detail, complete technical specifications, verified customer reviews, and live rental cost calculation.">
+  <title>Equipment Details &amp; Rental Quote — RentEquip</title>
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div class="site-wrapper">
+    <!-- Shared Top Navigation Header -->
+    <header class="main-header" id="main-header"></header>
+
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <!-- Breadcrumbs Navigation -->
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="index.html">Marketplace</a>
+          <span>/</span>
+          <span id="breadcrumb-category">Earthmoving</span>
+          <span>/</span>
+          <span id="breadcrumb-title" style="color: var(--color-text-main); font-weight: 600;">CAT 308 CR</span>
+        </nav>
+
+        <!-- Two-column Detail Layout -->
+        <div class="equipment-detail-layout">
+          <!-- Left Column: Specs, Visuals & Reviews -->
+          <div class="detail-left-col">
+            <!-- Large Media Visual -->
+            <div class="detail-main-media" id="detail-media"></div>
+
+            <!-- Header Info -->
+            <div class="detail-header-block">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                <span class="detail-category-badge" id="detail-category-badge">Earthmoving</span>
+                <div id="detail-status-badge"></div>
+              </div>
+
+              <h1 class="detail-title" id="detail-title">Loading Equipment...</h1>
+
+              <div class="detail-meta-row">
+                <div class="detail-meta-item">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span id="detail-location">Austin Depot</span>
+                </div>
+                <div class="detail-meta-item rating-stars" id="detail-rating">
+                  ★ 4.9 (0 reviews)
+                </div>
+              </div>
+            </div>
+
+            <!-- Operator License Required Notice -->
+            <div id="detail-license-notice" style="display: none; background-color: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: var(--radius-sm); padding: 0.85rem 1.25rem; margin-bottom: 1.75rem; align-items: center; gap: 0.75rem;">
+              <svg width="22" height="22" fill="none" stroke="#fbbf24" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink: 0;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+              </svg>
+              <div style="font-size: 0.85rem; color: #fbbf24;">
+                <strong>Operator Certification Recommended:</strong> This heavy machinery requires certified personnel or an experienced equipment operator on commercial jobsites.
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div style="margin-bottom: 2.5rem;">
+              <h2 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Equipment Overview</h2>
+              <p id="detail-description" style="font-size: 0.95rem; line-height: 1.7; color: var(--color-text-muted);"></p>
+            </div>
+
+            <!-- Technical Specifications -->
+            <div style="margin-bottom: 2.5rem;">
+              <h2 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Technical Specifications</h2>
+              <table class="detail-specs-table">
+                <tbody id="detail-specs-body">
+                  <!-- Dynamically rendered -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Included Features Checklist -->
+            <div style="margin-bottom: 2.5rem;">
+              <h2 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Standard Features &amp; Package</h2>
+              <div class="features-list" id="detail-features-list">
+                <!-- Dynamically rendered -->
+              </div>
+            </div>
+
+            <!-- Equipment Owner Trust Card -->
+            <div class="owner-trust-card">
+              <div class="owner-trust-avatar" id="owner-avatar">MV</div>
+              <div class="owner-trust-info">
+                <div class="owner-trust-name" id="owner-name">Marcus Vance</div>
+                <div class="owner-trust-role" id="owner-company">Vance Earthworks &amp; Machinery</div>
+                <div style="font-size: 0.82rem; color: #34d399;" id="owner-rating">★ 4.9 Verified Host • Responds within 1 hour</div>
+              </div>
+              <span class="badge badge-owner">Fleet Owner</span>
+            </div>
+
+            <!-- Verified Customer Reviews Section -->
+            <div style="margin-top: 3rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+                <h2 style="font-size: 1.25rem;">Verified Customer Reviews</h2>
+                <span class="badge badge-default" style="background: var(--color-surface-raised);">
+                  <span id="reviews-count-badge">0</span> Reviews
+                </span>
+              </div>
+              <div id="reviews-container">
+                <!-- Dynamically rendered -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Sticky Calculator -->
+          <div class="detail-right-col">
+            <div class="calculator-sticky-wrapper">
+              <div class="calculator-card" id="calculator-card">
+                <!-- Pricing Header -->
+                <div class="calc-rate-header">
+                  <div>
+                    <span class="calc-daily-price" id="calc-display-rate">$0.00</span>
+                    <span class="calc-daily-label">/ day</span>
+                  </div>
+                  <div style="text-align: right; font-size: 0.8rem; color: var(--color-text-dim);">
+                    Deposit: <strong id="calc-display-deposit" style="color: #34d399;">$0.00</strong>
+                  </div>
+                </div>
+
+                <!-- Date Range Selection -->
+                <div class="calc-dates-grid">
+                  <div class="calc-date-field">
+                    <label for="calc-start-date">Pickup Date</label>
+                    <input type="date" id="calc-start-date" class="calc-date-input" aria-label="Rental start pickup date">
+                  </div>
+                  <div class="calc-date-field">
+                    <label for="calc-end-date">Return Date</label>
+                    <input type="date" id="calc-end-date" class="calc-date-input" aria-label="Rental end return date">
+                  </div>
+                </div>
+
+                <!-- Live Availability & Conflict Alert -->
+                <div id="calc-availability-alert" class="calc-availability-alert alert-available" style="display: none;"></div>
+
+                <!-- Live Price Breakdown -->
+                <div class="calc-breakdown-box">
+                  <div class="calc-breakdown-row">
+                    <span>Duration:</span>
+                    <strong id="calc-val-days">0 Days</strong>
+                  </div>
+                  <div class="calc-breakdown-row">
+                    <span>Equipment Rental Fee:</span>
+                    <strong id="calc-val-fee">$0.00</strong>
+                  </div>
+                  <div class="calc-breakdown-row">
+                    <span>Damage Protection (6%):</span>
+                    <strong id="calc-val-service">$0.00</strong>
+                  </div>
+                  <div class="calc-breakdown-row">
+                    <span style="color: #34d399;">Refundable Security Deposit:</span>
+                    <strong id="calc-val-deposit" style="color: #34d399;">$0.00</strong>
+                  </div>
+                  <div class="calc-breakdown-row total-row">
+                    <span>Total Upfront:</span>
+                    <span class="calc-val" id="calc-val-total">$0.00</span>
+                  </div>
+                </div>
+
+                <!-- Action Button -->
+                <button type="button" class="btn btn-primary btn-block btn-lg" id="btn-request-booking">
+                  Request to Rent Equipment
+                </button>
+
+                <!-- Platform Guarantees -->
+                <div class="calculator-trust-notes">
+                  <div class="trust-note-item">
+                    <svg width="14" height="14" fill="none" stroke="#10b981" stroke-width="2.5" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Instant Availability Verification</span>
+                  </div>
+                  <div class="trust-note-item">
+                    <svg width="14" height="14" fill="none" stroke="#10b981" stroke-width="2.5" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>100% Refundable Security Deposit after Return Inspection</span>
+                  </div>
+                  <div class="trust-note-item">
+                    <svg width="14" height="14" fill="none" stroke="#10b981" stroke-width="2.5" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Free Cancellation prior to Owner Approval</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Shared Footer -->
+    <footer class="main-footer" id="main-footer"></footer>
+  </div>
+
+  <!-- Simulated Checkout Modal -->
+  <div class="modal" id="checkout-modal" aria-hidden="true" role="dialog" aria-labelledby="checkout-modal-title">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog modal-dialog-lg">
+      <div class="modal-header">
+        <h3 class="modal-title" id="checkout-modal-title">Simulated Rental Checkout</h3>
+        <button class="modal-close" onclick="RentEquip.UI.closeModal('checkout-modal')" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="checkout-form">
+        <div class="modal-body">
+          <div id="checkout-rental-summary"></div>
+
+          <div style="background-color: rgba(245, 158, 11, 0.1); border: 1px dashed rgba(245, 158, 11, 0.4); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 1.25rem; font-size: 0.8rem; color: #fbbf24;">
+            <strong>Test Mode Simulation:</strong> No actual credit card charge will occur. The booking and simulated payment receipt will be recorded to your browser's LocalStorage.
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="checkout-customer-name">Customer Name</label>
+              <input type="text" id="checkout-customer-name" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="checkout-customer-email">Confirmation Email</label>
+              <input type="email" id="checkout-customer-email" class="form-control" readonly>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="checkout-payment-method">Simulated Payment Method <span class="required">*</span></label>
+            <select id="checkout-payment-method" class="form-select">
+              <option value="Simulated Visa •••• 4242">Simulated Visa (Primary Commercial Card) •••• 4242</option>
+              <option value="Simulated Mastercard •••• 8812">Simulated Mastercard •••• 8812</option>
+              <option value="Simulated Company ACH Direct">Commercial Corporate ACH Direct Transfer</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="checkout-notes">Jobsite Delivery or Special Instructions (Optional)</label>
+            <textarea id="checkout-notes" class="form-textarea" placeholder="Provide jobsite delivery address or gate access instructions..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="RentEquip.UI.closeModal('checkout-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            Confirm &amp; Submit Request
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Core Scripts -->
+  <script src="js/calc.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/equipment-detail.js"></script>
+</body>
+</html>

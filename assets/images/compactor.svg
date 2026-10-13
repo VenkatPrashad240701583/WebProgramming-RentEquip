@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg)"/>
+  <rect x="0" y="340" width="600" height="60" fill="#090d16"/>
+  <!-- Base Plate -->
+  <path d="M220 330 L380 330 C395 330, 400 320, 395 315 L230 315 C220 315, 215 325, 220 330 Z" fill="#334155" stroke="#64748b" stroke-width="2"/>
+  <!-- Exciter Housing -->
+  <rect x="250" y="295" width="110" height="20" rx="4" fill="#1e293b"/>
+  <!-- Engine Base Deck -->
+  <rect x="240" y="275" width="130" height="20" rx="3" fill="#475569"/>
+  <!-- Rubber shock dampers -->
+  <circle cx="260" cy="285" r="5" fill="#0f172a"/>
+  <circle cx="350" cy="285" r="5" fill="#0f172a"/>
+  <!-- Engine (Honda Style) -->
+  <rect x="255" y="195" width="90" height="80" rx="6" fill="url(#amber)"/>
+  <!-- Air Cleaner & Fuel Tank -->
+  <rect x="245" y="170" width="70" height="25" rx="5" fill="#0f172a"/>
+  <rect x="325" y="180" width="35" height="45" rx="4" fill="#334155"/>
+  <!-- Recoil starter circle -->
+  <circle cx="295" cy="235" r="20" fill="#334155"/>
+  <circle cx="295" cy="235" r="8" fill="#cbd5e1"/>
+  <!-- Operating Handle / Arm -->
+  <path d="M245 285 L140 160 L140 140 L160 140" stroke="#f59e0b" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <!-- Vibration damping grip -->
+  <rect x="132" y="135" width="30" height="12" rx="3" fill="#0f172a"/>
+  <!-- Water tank (for asphalt) -->
+  <rect x="350" y="225" width="30" height="50" rx="4" fill="#38bdf8" opacity="0.6"/>
+  <!-- Text -->
+  <text x="50" y="60" fill="#f8fafc" font-size="20" font-family="system-ui, sans-serif" font-weight="700">Wacker Neuson Forward Plate Compactor</text>
+  <text x="50" y="85" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif">20&quot; Plate Width • 4,400 lbs Centrifugal Force</text>
+</svg>

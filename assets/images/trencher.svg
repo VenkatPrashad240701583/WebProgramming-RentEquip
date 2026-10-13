@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="yellow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg)"/>
+  <rect x="0" y="340" width="600" height="60" fill="#090d16"/>
+  <!-- Rubber Track System -->
+  <rect x="180" y="280" width="160" height="45" rx="22" fill="#1e293b" stroke="#475569" stroke-width="4"/>
+  <circle cx="205" cy="302" r="16" fill="#334155"/>
+  <circle cx="260" cy="302" r="14" fill="#334155"/>
+  <circle cx="315" cy="302" r="16" fill="#334155"/>
+  <!-- Main Chassis -->
+  <path d="M190 280 L200 210 L330 210 L350 280 Z" fill="url(#yellow)"/>
+  <rect x="230" y="170" width="80" height="40" rx="4" fill="#334155"/>
+  <!-- Handlebars / Controls -->
+  <path d="M190 230 L130 160 L120 160" stroke="#f59e0b" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <!-- Trencher Boom and Digging Chain (pointing downward) -->
+  <g transform="rotate(35 340 270)">
+    <rect x="340" y="255" width="190" height="30" rx="8" fill="#475569"/>
+    <!-- Chain Teeth -->
+    <path d="M340 250 L530 250" stroke="#fbbf24" stroke-width="6" stroke-dasharray="10 8"/>
+    <path d="M340 290 L530 290" stroke="#fbbf24" stroke-width="6" stroke-dasharray="10 8"/>
+    <!-- End sprocket -->
+    <circle cx="525" cy="270" r="14" fill="#1e293b"/>
+  </g>
+  <!-- Crumber shoe bar -->
+  <line x1="330" y1="260" x2="430" y2="340" stroke="#94a3b8" stroke-width="5"/>
+  <!-- Title -->
+  <text x="50" y="60" fill="#f8fafc" font-size="20" font-family="system-ui, sans-serif" font-weight="700">Ditch Witch C16X Walk-Behind Trencher</text>
+  <text x="50" y="85" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif">16 HP Vanguard • 36&quot; Digging Depth • Tracked</text>
+</svg>

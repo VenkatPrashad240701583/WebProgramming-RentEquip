@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="yellow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg)"/>
+  <rect x="0" y="340" width="600" height="60" fill="#090d16"/>
+  <!-- Wheels -->
+  <circle cx="210" cy="305" r="38" fill="#1e293b" stroke="#334155" stroke-width="8"/>
+  <circle cx="210" cy="305" r="14" fill="#fbbf24"/>
+  <circle cx="330" cy="305" r="38" fill="#1e293b" stroke="#334155" stroke-width="8"/>
+  <circle cx="330" cy="305" r="14" fill="#fbbf24"/>
+  <!-- Body -->
+  <path d="M160 290 L160 210 L230 180 L350 200 L370 290 Z" fill="url(#yellow)"/>
+  <!-- Operator Cab -->
+  <path d="M220 180 L250 120 L320 120 L340 200 Z" fill="#1e293b" stroke="#475569" stroke-width="3"/>
+  <path d="M255 130 L310 130 L330 190 L240 190 Z" fill="#38bdf8" opacity="0.6"/>
+  <!-- Protective cage mesh -->
+  <line x1="270" y1="130" x2="270" y2="190" stroke="#0f172a" stroke-width="2"/>
+  <line x1="295" y1="130" x2="295" y2="190" stroke="#0f172a" stroke-width="2"/>
+  <!-- Lift Arms -->
+  <path d="M170 210 L360 170 L420 280" stroke="#475569" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <!-- Bucket -->
+  <polygon points="410,260 480,270 470,325 395,325" fill="#334155" stroke="#f59e0b" stroke-width="2"/>
+  <!-- Decal -->
+  <rect x="180" y="240" width="70" height="15" rx="3" fill="#0f172a"/>
+  <text x="215" y="251" fill="#f59e0b" font-size="9" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">BOBCAT S650</text>
+  <text x="50" y="60" fill="#f8fafc" font-size="20" font-family="system-ui, sans-serif" font-weight="700">Bobcat S650 Skid Steer</text>
+  <text x="50" y="85" fill="#94a3b8" font-size="13" font-family="system-ui, sans-serif">Compact Track Loader • 74 HP Turbo</text>
+</svg>

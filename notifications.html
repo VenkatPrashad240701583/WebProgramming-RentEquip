@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RentEquip - Notification & Alert Center: booking requests, equipment handover alerts, overdue reminders, and deposit settlement notices.">
+  <title>Notifications &amp; Alerts — RentEquip</title>
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div class="site-wrapper">
+    <!-- Shared Top Navigation Header -->
+    <header class="main-header" id="main-header"></header>
+
+    <main class="main-content" id="main-content">
+      <!-- Alerts Header Banner -->
+      <section class="dashboard-header-banner">
+        <div class="container">
+          <div class="dashboard-header-flex">
+            <div>
+              <h1 class="dashboard-title">Platform Alerts &amp; Notifications</h1>
+              <div class="dashboard-subtitle">
+                <span id="notif-scope-user-label">Alerts for Active Perspective</span>
+                <span>•</span>
+                <span>Real-time rental events</span>
+              </div>
+            </div>
+
+            <div class="dashboard-header-actions">
+              <label class="filter-checkbox-label" style="margin-bottom: 0; background: var(--color-surface-raised); padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                <input type="checkbox" id="notif-scope-toggle" class="filter-checkbox">
+                <span style="font-size: 0.82rem; font-weight: 600;">Show All Platform Roles</span>
+              </label>
+
+              <button class="btn btn-outline btn-sm" id="btn-mark-all-read">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+                Mark All as Read
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="container">
+        <!-- High Priority Overdue Banner -->
+        <div id="notif-overdue-banner" style="display: none; margin-bottom: 1.5rem;"></div>
+
+        <!-- Notification List Card -->
+        <div class="card" style="max-width: 880px; margin: 0 auto 3.5rem;">
+          <div class="card-header">
+            <div class="tab-group" id="notif-filter-tabs" style="margin-bottom: 0; border-bottom: none;">
+              <button class="tab-btn active" data-filter="all">All Alerts</button>
+              <button class="tab-btn" data-filter="unread">Unread Only</button>
+              <button class="tab-btn" data-filter="actions">Action Required</button>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <!-- Feed Container -->
+            <div class="notifications-list" id="notifications-list-container">
+              <!-- Dynamically rendered -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="notif-empty-state" style="display: none;">
+              <svg class="empty-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+              </svg>
+              <h3 class="empty-title">All Caught Up</h3>
+              <p class="empty-desc">No notifications matching the selected filter. As equipment bookings are requested, approved, or returned, alerts will appear here.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Shared Footer -->
+    <footer class="main-footer" id="main-footer"></footer>
+  </div>
+
+  <!-- Core Scripts -->
+  <script src="js/calc.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/notifications-page.js"></script>
+</body>
+</html>
