@@ -36,7 +36,8 @@
         { href: 'customer.html', label: 'My Borrows', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
         { href: 'owner.html', label: 'Lender & Club Desk', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
         { href: 'admin.html', label: 'SAC Council Admin', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
-        { href: 'notifications.html', label: 'Campus Alerts', icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9', badge: unreadCount }
+        { href: 'notifications.html', label: 'Campus Alerts', icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9', badge: unreadCount },
+        { href: 'presentation.html', label: 'Project Deck', icon: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z' }
       ];
 
       const users = window.RentEquip.Auth.getAllUsers();
@@ -183,12 +184,12 @@
             </div>
 
             <div class="footer-col">
-              <h4 class="footer-heading">Student Scenarios</h4>
+              <h4 class="footer-heading">Course Presentation</h4>
               <ul class="footer-links">
-                <li><span class="sim-bullet">•</span> <strong>Aarav Sharma</strong>: Active calculator borrow for math exam</li>
-                <li><span class="sim-bullet">•</span> <strong>Priya Patel</strong>: Robotics Club &amp; engineering drawing host</li>
-                <li><span class="sim-bullet">•</span> <strong>SAC Council</strong>: Campus equipment library &amp; lab oversight</li>
-                <li><span class="sim-bullet">•</span> Emergency same-day pickups for forgotten lab gear</li>
+                <li><a href="presentation.html">🖥️ Interactive Slide Deck</a></li>
+                <li><a href="RentEquip_Presentation.pptx" download>📥 Download PowerPoint (.PPTX)</a></li>
+                <li><span class="sim-bullet">•</span> <strong>VENKAT PRASHAD A</strong> (240701583)</li>
+                <li><span class="sim-bullet">•</span> Course: <strong>Web Programming</strong></li>
               </ul>
             </div>
 
